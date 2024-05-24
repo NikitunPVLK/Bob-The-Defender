@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:text="HP: "
         app:layout_constraintEnd_toStartOf="@id/health"
-        app:layout_constraintTop_toTopOf="@id/points_label" />
+        app:layout_constraintTop_toTopOf="@id/health" />
 
     <TextView
         android:id="@+id/health"
@@ -75,24 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="10"
-        app:layout_constraintEnd_toStartOf="@id/points_label"
-        app:layout_constraintTop_toTopOf="@id/points_label" />
-
-    <TextView
-        android:id="@+id/points_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Points: "
-        app:layout_constraintEnd_toStartOf="@id/points"
-        app:layout_constraintTop_toTopOf="@id/points" />
-
-    <TextView
-        android:id="@+id/points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -10,9 +10,20 @@
         <action
             android:id="@+id/action_startFragment_to_gameScreenFragment"
             app:destination="@id/gameScreenFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_shopScreenFragment"
+            app:destination="@id/shopScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameScreenFragment"
         android:name="com.example.bobthedefender.ui.fragments.FightScreenFragment"
-        android:label="GameScreenFragment" />
+        android:label="GameScreenFragment" >
+        <action
+            android:id="@+id/action_gameScreenFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopScreenFragment"
+        android:name="com.example.bobthedefender.ui.fragments.ShopScreenFragment"
+        android:label="ShopScreenFragment" />
 </navigation>

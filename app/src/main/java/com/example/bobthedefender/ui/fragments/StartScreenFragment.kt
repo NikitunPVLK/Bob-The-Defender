@@ -29,6 +29,14 @@ class StartScreenFragment : Fragment() {
         binding.startGameButton.setOnClickListener {
             startGame()
         }
+
+        binding.shopButton.setOnClickListener {
+            navigateToShop()
+        }
+    }
+
+    private fun navigateToShop() {
+        findNavController().navigate(R.id.action_startFragment_to_shopScreenFragment)
     }
 
     private fun startGame() {
