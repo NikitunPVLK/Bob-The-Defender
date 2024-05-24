@@ -12,7 +12,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class GameViewModel : ViewModel() {
+class FightViewModel : ViewModel() {
     private val _health = MutableLiveData(0)
     val health: LiveData<Int>
         get() = _health
@@ -83,7 +83,7 @@ class GameViewModel : ViewModel() {
                     innerList.add(enemy)
                     _enemies.postValue(innerList)
                     delay(1000)
-                    Log.d("GameViewModel", "${enemies.value?.size}")
+                    Log.d("FightViewModel", "${enemies.value?.size}")
                 }
             }
         }

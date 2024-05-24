@@ -13,6 +13,6 @@
     </fragment>
     <fragment
         android:id="@+id/gameScreenFragment"
-        android:name="com.example.bobthedefender.ui.fragments.GameScreenFragment"
+        android:name="com.example.bobthedefender.ui.fragments.FightScreenFragment"
         android:label="GameScreenFragment" />
 </navigation>
