@@ -6,16 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bobthedefender.databinding.FragmentShopScreenBinding
+import com.example.bobthedefender.databinding.FragmentShopBinding
 import com.example.bobthedefender.ui.fragments.adapters.WeaponListAdapter
 import com.example.bobthedefender.ui.viewmodels.GameViewModel
 
-class ShopScreenFragment: Fragment() {
-    private var _binding: FragmentShopScreenBinding? = null
-    private val binding: FragmentShopScreenBinding
+class ShopFragment: Fragment() {
+    private var _binding: FragmentShopBinding? = null
+    private val binding: FragmentShopBinding
         get() = _binding!!
 
     private lateinit var gameViewModel: GameViewModel
@@ -33,7 +32,7 @@ class ShopScreenFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentShopScreenBinding.inflate(inflater, container, false)
+        _binding = FragmentShopBinding.inflate(inflater, container, false)
         return binding.root
     }
 

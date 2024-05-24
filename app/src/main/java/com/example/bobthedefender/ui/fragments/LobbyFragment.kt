@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.bobthedefender.R
-import com.example.bobthedefender.databinding.FragmentStartScreenBinding
+import com.example.bobthedefender.databinding.FragmentLobbyBinding
 
-class StartScreenFragment : Fragment() {
-    private var _binding: FragmentStartScreenBinding? = null
+class LobbyFragment : Fragment() {
+    private var _binding: FragmentLobbyBinding? = null
     private val binding
         get() = _binding!!
 
@@ -19,7 +19,7 @@ class StartScreenFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStartScreenBinding.inflate(inflater, container, false)
+        _binding = FragmentLobbyBinding.inflate(inflater, container, false)
         return binding.root
     }
 

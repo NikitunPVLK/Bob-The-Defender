@@ -5,7 +5,7 @@
     app:startDestination="@id/startFragment">
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.example.bobthedefender.ui.fragments.StartScreenFragment"
+        android:name="com.example.bobthedefender.ui.fragments.LobbyFragment"
         android:label="StartFragment" >
         <action
             android:id="@+id/action_startFragment_to_gameScreenFragment"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameScreenFragment"
-        android:name="com.example.bobthedefender.ui.fragments.FightScreenFragment"
+        android:name="com.example.bobthedefender.ui.fragments.FightFragment"
         android:label="GameScreenFragment" >
         <action
             android:id="@+id/action_gameScreenFragment_to_startFragment"
@@ -24,6 +24,6 @@
     </fragment>
     <fragment
         android:id="@+id/shopScreenFragment"
-        android:name="com.example.bobthedefender.ui.fragments.ShopScreenFragment"
+        android:name="com.example.bobthedefender.ui.fragments.ShopFragment"
         android:label="ShopScreenFragment" />
 </navigation>

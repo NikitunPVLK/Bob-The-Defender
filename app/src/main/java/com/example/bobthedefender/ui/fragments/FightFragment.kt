@@ -11,22 +11,20 @@ import android.widget.AbsoluteLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.bobthedefender.R
-import com.example.bobthedefender.databinding.FragmentFightScreenBinding
+import com.example.bobthedefender.databinding.FragmentFightBinding
 import com.example.bobthedefender.ui.viewmodels.FightViewModel
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
 import com.example.bobthedefender.ui.viewmodels.GameViewModel
-import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 
-class FightScreenFragment : Fragment() {
-    private val TAG = "FightScreenFragment"
+class FightFragment : Fragment() {
+    private val TAG = "FightFragment"
 
-    private var _binding: FragmentFightScreenBinding? = null
+    private var _binding: FragmentFightBinding? = null
     private val binding
         get() = _binding!!
 
@@ -58,7 +56,7 @@ class FightScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d(TAG, "creation")
-        _binding = FragmentFightScreenBinding.inflate(inflater, container, false)
+        _binding = FragmentFightBinding.inflate(inflater, container, false)
         return binding.root
     }
 
