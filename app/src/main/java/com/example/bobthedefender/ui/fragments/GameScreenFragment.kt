@@ -59,6 +59,10 @@ class GameScreenFragment : Fragment() {
             }
         }
 
+        gameViewModel.enemiesLeft.observe(viewLifecycleOwner) {
+            binding.enemiesLeft.text = it.toString()
+        }
+
         gameViewModel.health.observe(viewLifecycleOwner) {
             binding.health.text = it.toString()
         }

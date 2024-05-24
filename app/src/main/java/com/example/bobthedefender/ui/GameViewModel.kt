@@ -33,7 +33,11 @@ class GameViewModel : ViewModel() {
 
     private val weaponDamage: Int = 1
 
-    private val enemiesToKill: Int = 10
+    private val enemiesToKill = 10
+
+    private val _enemiesLeft = MutableLiveData(enemiesToKill)
+    val enemiesLeft: LiveData<Int>
+        get() = _enemiesLeft
 
     private lateinit var spawnJob: Job
 
@@ -56,6 +60,7 @@ class GameViewModel : ViewModel() {
             _points.value = _points.value!! + 1
             innerList.remove(enemy)
             _enemies.postValue(innerList)
+            _enemiesLeft.value = _enemiesLeft.value!!.minus(1)
             return true
         }
         return false
