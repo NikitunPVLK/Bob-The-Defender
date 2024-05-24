@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.bobthedefender.R
+import com.example.bobthedefender.databinding.EnemyBinding
 import com.example.bobthedefender.databinding.FragmentFightBinding
 import com.example.bobthedefender.ui.viewmodels.FightViewModel
 import com.example.bobthedefender.ui.models.Enemy
@@ -104,46 +105,44 @@ class FightFragment : Fragment() {
     private fun spawnEnemies(enemies: List<Enemy>) {
         for (enemy in enemies) {
             if (!enemiesMap.contains(enemy)) {
-                val inflater = LayoutInflater.from(context)
-                val enemyView = inflater.inflate(R.layout.enemy, null)
-                enemyView.layoutParams = AbsoluteLayout.LayoutParams(
+                val enemyBinding = EnemyBinding.inflate(LayoutInflater.from(context))
+                enemyBinding.root.layoutParams = AbsoluteLayout.LayoutParams(
                     enemy.width,
                     enemy.height,
                     enemy.x,
                     enemy.y
                 )
-                val enemyBody = enemyView.findViewById<ImageView>(R.id.enemy_body)
                 Glide.with(requireContext())
                     .asGif()
                     .load(R.raw.alien)
-                    .into(enemyBody)
-                binding.gameFieldContainer.addView(enemyView)
+                    .into(enemyBinding.enemyBody)
+                binding.gameFieldContainer.addView(enemyBinding.root)
                 enemy.health.observe(viewLifecycleOwner) {
-                    enemyView.findViewById<TextView>(R.id.enemy_hp).text =
+                    enemyBinding.enemyHp.text =
                         enemy.health.value.toString()
                 }
-                val enemyAnimator = ObjectAnimator.ofFloat(enemyView, View.TRANSLATION_X, -2400f)
+                val enemyAnimator = ObjectAnimator.ofFloat(enemyBinding.root, View.TRANSLATION_X, -2400f)
                 enemyAnimator.addUpdateListener { animation ->
                     val animatedValue = animation.animatedValue as Float
                     if (animatedValue == -2400f) {
                         fightViewModel.dealDamage()
                         enemiesMap.remove(enemy)
-                        binding.gameFieldContainer.removeView(enemyView)
+                        binding.gameFieldContainer.removeView(enemyBinding.root)
                     }
                 }
                 enemyAnimator.duration = 10000
                 enemyAnimator.start()
 
-                enemyView.setOnClickListener {
+                enemyBinding.root.setOnClickListener {
                     if (fightViewModel.hitEnemy(enemy)) {
-                        binding.gameFieldContainer.removeView(enemyView)
+                        binding.gameFieldContainer.removeView(enemyBinding.root)
                         enemyAnimator.cancel()
                         enemiesMap.remove(enemy)
                         gameViewModel.addCoins(1)
                     }
                 }
 
-                enemiesMap[enemy] = Pair(enemyView, enemyAnimator)
+                enemiesMap[enemy] = Pair(enemyBinding.root, enemyAnimator)
             }
         }
     }
