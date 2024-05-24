@@ -1,27 +1,37 @@
 package com.example.bobthedefender.ui.fragments
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsoluteLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.bobthedefender.R
-import com.example.bobthedefender.databinding.FragmentGameScreenBinding
-import com.example.bobthedefender.ui.GameViewModel
+import com.example.bobthedefender.databinding.FragmentFightScreenBinding
+import com.example.bobthedefender.ui.viewmodels.FightViewModel
 import com.example.bobthedefender.ui.models.Enemy
+import com.example.bobthedefender.ui.models.FightState
+import com.example.bobthedefender.ui.viewmodels.GameViewModel
+import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 
-class GameScreenFragment : Fragment() {
-    private val TAG = "GameScreenFragment"
+class FightScreenFragment : Fragment() {
+    private val TAG = "FightScreenFragment"
 
-    private var _binding: FragmentGameScreenBinding? = null
+    private var _binding: FragmentFightScreenBinding? = null
     private val binding
         get() = _binding!!
 
-    private val gameViewModel: GameViewModel by viewModels()
+    private lateinit var fightViewModel: FightViewModel
+    private lateinit var gameViewModel: GameViewModel
 
     private val enemiesMap = mutableMapOf<Enemy, Pair<View, ObjectAnimator>>()
 
@@ -35,36 +45,52 @@ class GameScreenFragment : Fragment() {
         displayHeight = displayMetrics.heightPixels
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val viewModelProvider = ViewModelProvider(requireActivity())
+        fightViewModel = viewModelProvider[FightViewModel::class.java]
+        gameViewModel = viewModelProvider[GameViewModel::class.java]
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         Log.d(TAG, "creation")
-        _binding = FragmentGameScreenBinding.inflate(inflater, container, false)
+        _binding = FragmentFightScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        gameViewModel.startGame()
+        fightViewModel.startGame()
 
-        gameViewModel.isGameLost.observe(viewLifecycleOwner) {
-            if (it) {
-                clearField()
+        fightViewModel.fightState.observe(viewLifecycleOwner) {
+            when (it) {
+                FightState.LOSE -> {
+                    clearField()
+                    findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
+                }
+
+                FightState.WIN -> {
+                    findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
+                }
+
+                else -> {}
             }
         }
 
-        gameViewModel.health.observe(viewLifecycleOwner) {
+        fightViewModel.enemiesLeft.observe(viewLifecycleOwner) {
+            binding.enemiesLeft.text = it.toString()
+        }
+
+        fightViewModel.health.observe(viewLifecycleOwner) {
             binding.health.text = it.toString()
         }
 
-        gameViewModel.points.observe(viewLifecycleOwner) {
-            binding.points.text = it.toString()
-        }
-
-        gameViewModel.enemies.observe(viewLifecycleOwner) {
+        fightViewModel.enemies.observe(viewLifecycleOwner) {
             spawnEnemies(it)
         }
     }
@@ -88,13 +114,21 @@ class GameScreenFragment : Fragment() {
                     enemy.x,
                     enemy.y
                 )
+                val enemyBody = enemyView.findViewById<ImageView>(R.id.enemy_body)
+                Glide.with(requireContext())
+                    .asGif()
+                    .load(R.raw.alien)
+                    .into(enemyBody)
                 binding.gameFieldContainer.addView(enemyView)
-
+                enemy.health.observe(viewLifecycleOwner) {
+                    enemyView.findViewById<TextView>(R.id.enemy_hp).text =
+                        enemy.health.value.toString()
+                }
                 val enemyAnimator = ObjectAnimator.ofFloat(enemyView, View.TRANSLATION_X, -2400f)
                 enemyAnimator.addUpdateListener { animation ->
                     val animatedValue = animation.animatedValue as Float
                     if (animatedValue == -2400f) {
-                        gameViewModel.dealDamage()
+                        fightViewModel.dealDamage()
                         enemiesMap.remove(enemy)
                         binding.gameFieldContainer.removeView(enemyView)
                     }
@@ -103,10 +137,11 @@ class GameScreenFragment : Fragment() {
                 enemyAnimator.start()
 
                 enemyView.setOnClickListener {
-                    if (gameViewModel.hitEnemy(enemy)) {
+                    if (fightViewModel.hitEnemy(enemy)) {
                         binding.gameFieldContainer.removeView(enemyView)
                         enemyAnimator.cancel()
                         enemiesMap.remove(enemy)
+                        gameViewModel.addCoins(1)
                     }
                 }
 

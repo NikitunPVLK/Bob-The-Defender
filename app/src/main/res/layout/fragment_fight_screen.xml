@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_zone"
         app:layout_constraintEnd_toEndOf="@+id/player_zone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <AbsoluteLayout
         android:id="@+id/game_field_container"
@@ -43,12 +43,31 @@
     </AbsoluteLayout>
 
     <TextView
+        android:id="@+id/enemies_left_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enemies left: "
+        app:layout_constraintEnd_toStartOf="@id/enemies_left"
+        app:layout_constraintTop_toTopOf="@id/enemies_left"
+        />
+
+    <TextView
+        android:id="@+id/enemies_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toStartOf="@id/health_label"
+        app:layout_constraintTop_toTopOf="@id/health_label"
+        />
+
+    <TextView
         android:id="@+id/health_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HP: "
         app:layout_constraintEnd_toStartOf="@id/health"
-        app:layout_constraintTop_toTopOf="@id/points_label" />
+        app:layout_constraintTop_toTopOf="@id/health" />
 
     <TextView
         android:id="@+id/health"
@@ -56,24 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="10"
-        app:layout_constraintEnd_toStartOf="@id/points_label"
-        app:layout_constraintTop_toTopOf="@id/points_label" />
-
-    <TextView
-        android:id="@+id/points_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Points: "
-        app:layout_constraintEnd_toStartOf="@id/points"
-        app:layout_constraintTop_toTopOf="@id/points" />
-
-    <TextView
-        android:id="@+id/points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
