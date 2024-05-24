@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsoluteLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.bobthedefender.R
 import com.example.bobthedefender.databinding.FragmentGameScreenBinding
 import com.example.bobthedefender.ui.GameViewModel
@@ -89,6 +91,11 @@ class GameScreenFragment : Fragment() {
                     enemy.x,
                     enemy.y
                 )
+                val enemyBody = enemyView.findViewById<ImageView>(R.id.enemy_body)
+                Glide.with(requireContext())
+                    .asGif()
+                    .load(R.raw.alien)
+                    .into(enemyBody)
                 binding.gameFieldContainer.addView(enemyView)
                 enemy.health.observe(viewLifecycleOwner) {
                     enemyView.findViewById<TextView>(R.id.enemy_hp).text = enemy.health.value.toString()
