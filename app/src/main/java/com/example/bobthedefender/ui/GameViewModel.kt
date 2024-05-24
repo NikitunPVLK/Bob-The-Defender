@@ -31,6 +31,10 @@ class GameViewModel : ViewModel() {
     val isGameLost: LiveData<Boolean>
         get() = _isGameLost
 
+    private val weaponDamage: Int = 1
+
+    private val enemiesToKill: Int = 10
+
     private lateinit var spawnJob: Job
 
     fun startGame() {
@@ -48,10 +52,13 @@ class GameViewModel : ViewModel() {
     }
 
     fun hitEnemy(enemy: Enemy): Boolean {
-        _points.value = _points.value!! + 1
-        innerList.remove(enemy)
-        _enemies.postValue(innerList)
-        return true
+        if (enemy.receiveDamage(weaponDamage)) {
+            _points.value = _points.value!! + 1
+            innerList.remove(enemy)
+            _enemies.postValue(innerList)
+            return true
+        }
+        return false
     }
 
     private fun stopGame() {
@@ -63,14 +70,16 @@ class GameViewModel : ViewModel() {
 
     private fun spawnEnemies() {
         spawnJob = viewModelScope.launch {
-            while (isActive) {
-                val x = 2000
-                val y = Random.nextInt(0, 800)
-                val enemy = Enemy(x, y, 120, 180)
-                innerList.add(enemy)
-                _enemies.postValue(innerList)
-                delay(1000)
-                Log.d("GameViewModel", "${enemies.value?.size}")
+            for (i in 0 until enemiesToKill) {
+                if (isActive) {
+                    val x = 2000
+                    val y = Random.nextInt(0, 800)
+                    val enemy = Enemy(x, y, 160, 180)
+                    innerList.add(enemy)
+                    _enemies.postValue(innerList)
+                    delay(1000)
+                    Log.d("GameViewModel", "${enemies.value?.size}")
+                }
             }
         }
     }

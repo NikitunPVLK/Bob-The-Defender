@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsoluteLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.bobthedefender.R
@@ -89,7 +90,9 @@ class GameScreenFragment : Fragment() {
                     enemy.y
                 )
                 binding.gameFieldContainer.addView(enemyView)
-
+                enemy.health.observe(viewLifecycleOwner) {
+                    enemyView.findViewById<TextView>(R.id.enemy_hp).text = enemy.health.value.toString()
+                }
                 val enemyAnimator = ObjectAnimator.ofFloat(enemyView, View.TRANSLATION_X, -2400f)
                 enemyAnimator.addUpdateListener { animation ->
                     val animatedValue = animation.animatedValue as Float

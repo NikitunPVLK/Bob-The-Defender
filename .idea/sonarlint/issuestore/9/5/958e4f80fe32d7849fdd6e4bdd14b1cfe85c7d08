@@ -1,18 +1,5 @@
 
-Bkotlin:S125o"Remove this commented out code.(¦Ê¹ÿúÿÿÿÿ8Øñè¸ú1
-;kotlin:S6310W"Avoid hardcoded dispatchers.(Œ‚ŠÖ8µ­·ú1
-;kotlin:S6310l"Avoid hardcoded dispatchers.(Í¡·Ş8µ­·ú1
-pkotlin:S6311W"QRemove this dispatcher. It is pointless when used with only suspending functions.(Œ‚ŠÖ8¶­·ú1
->kotlin:S1128"Remove this unused import.(Úúèõÿÿÿÿÿ8ÙÕÊ¸ú1
-9kotlin:S1128"Remove this unused import.(˜íá8ÙÕÊ¸ú1
-9kotlin:S1128"Remove this unused import.(²ƒğ8¹­·ú1
-9kotlin:S1128"Remove this unused import.(«Ò¬Ï8¹­·ú1
->kotlin:S1128"Remove this unused import.(™¬±öúÿÿÿÿ8¹­·ú1
->kotlin:S1128"Remove this unused import.(á»¸•úÿÿÿÿ8¹­·ú1
->kotlin:S1128"Remove this unused import.(¿Îˆ“şÿÿÿÿ8º­·ú1
-9kotlin:S1128"Remove this unused import.(¥ïú8º­·ú1
-9kotlin:S1128"Remove this unused import.(”¼’Á8º­·ú1
-Gkotlin:S1874d"#Deprecated code should not be used.(Æó Ëşÿÿÿÿ8º­·ú1
-Gkotlin:S1874"#Deprecated code should not be used.(›‹Ôşÿÿÿÿ8º­·ú1
-Gkotlin:S1874d"#Deprecated code should not be used.(Æó Ëşÿÿÿÿ8º­·ú1
-Gkotlin:S1874d"#Deprecated code should not be used.(Æó Ëşÿÿÿÿ8º­·ú1
+Bkotlin:S1874U"#Deprecated code should not be used.(€Ö’œ8›¥½½ú1
+Gkotlin:S1874	"#Deprecated code should not be used.(›‹Ôşÿÿÿÿ8œ¥½½ú1
+Bkotlin:S1874U"#Deprecated code should not be used.(€Ö’œ8œ¥½½ú1
+Bkotlin:S1874U"#Deprecated code should not be used.(€Ö’œ8œ¥½½ú1
