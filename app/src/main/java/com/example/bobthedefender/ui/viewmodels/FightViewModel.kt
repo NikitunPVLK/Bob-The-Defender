@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -28,8 +29,6 @@ class FightViewModel : ViewModel() {
     val fightState: LiveData<FightState>
         get() = _fightState
 
-    private val weaponDamage: Int = 1
-
     private var enemiesToKill = 10
 
     private val _enemiesLeft = MutableLiveData(enemiesToKill)
@@ -42,8 +41,8 @@ class FightViewModel : ViewModel() {
         _health.value = 10
         enemiesToKill = 10
         _enemiesLeft.value = enemiesToKill
-        spawnEnemies()
         _fightState.value = FightState.IN_PROGRESS
+        spawnEnemies()
     }
 
     fun dealDamage() {
@@ -52,6 +51,7 @@ class FightViewModel : ViewModel() {
             stopGame()
             _fightState.value = FightState.LOSE
         }
+        _enemiesLeft.value = _enemiesLeft.value?.minus(1)
     }
 
     fun hitEnemy(enemy: Enemy, damage: Int): Boolean {
@@ -75,18 +75,31 @@ class FightViewModel : ViewModel() {
     }
 
     private fun spawnEnemies() {
+        var counter = 0
         spawnJob = viewModelScope.launch {
-            for (i in 0 until enemiesToKill) {
-                if (isActive) {
+            while (counter < enemiesToKill) {
+                if (fightState.value == FightState.IN_PROGRESS) {
                     val x = 2000
                     val y = Random.nextInt(0, 800)
                     val enemy = Enemy(x, y, 160, 180)
                     innerList.add(enemy)
                     _enemies.postValue(innerList)
+                    counter += 1
                     delay(1000)
                     Log.d("FightViewModel", "${enemies.value?.size}")
+                } else if (fightState.value == FightState.PAUSED) {
+                    // Wait here while spawning is paused
+                    delay(100) // Adjust delay as needed to avoid busy waiting
                 }
             }
+        }
+    }
+
+    fun changePauseState() {
+        if (fightState.value == FightState.IN_PROGRESS) {
+            _fightState.value = FightState.PAUSED
+        } else if (fightState.value == FightState.PAUSED) {
+            _fightState.value = FightState.IN_PROGRESS
         }
     }
 }

@@ -92,6 +92,21 @@ class FightFragment : Fragment() {
         fightViewModel.enemies.observe(viewLifecycleOwner) {
             spawnEnemies(it)
         }
+
+        binding.playerZone.setOnClickListener {
+            fightViewModel.changePauseState()
+            changeAnimationsState()
+        }
+    }
+
+    private fun changeAnimationsState() {
+        for ((_, enemyAnimator) in enemiesMap.values) {
+            if (enemyAnimator.isPaused) {
+                enemyAnimator.resume()
+            } else {
+                enemyAnimator.pause()
+            }
+        }
     }
 
     private fun clearField() {
