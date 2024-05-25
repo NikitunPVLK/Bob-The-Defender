@@ -8,12 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlin.random.Random
-import kotlin.random.nextInt
 
 class FightViewModel : ViewModel() {
     private val _health = MutableLiveData(0)
@@ -49,13 +46,18 @@ class FightViewModel : ViewModel() {
         spawnEnemies()
     }
 
-    fun dealDamage() {
+    fun damagePlayer(enemy: Enemy) {
+        innerList.remove(enemy)
         _health.value = _health.value!! - 1
         if (_health.value!! <= 0) {
             stopGame()
             _fightState.value = FightState.LOSE
         }
         _enemiesLeft.value = _enemiesLeft.value?.minus(1)
+        if (enemiesLeft.value!! <= 0 && innerList.isEmpty()) {
+            stopGame()
+            _fightState.value = FightState.WIN
+        }
     }
 
     fun hitEnemy(enemy: Enemy, damage: Int): Boolean {

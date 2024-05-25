@@ -9,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsoluteLayout
 import android.widget.AbsoluteLayout.LayoutParams
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -152,7 +150,7 @@ class FightFragment : Fragment() {
                 enemyAnimator.addUpdateListener { animation ->
                     val animatedValue = animation.animatedValue as Float
                     if (animatedValue == -2400f) {
-                        fightViewModel.dealDamage()
+                        fightViewModel.damagePlayer(enemy)
                         enemiesMap.remove(enemy)
                         binding.gameFieldContainer.removeView(enemyBinding.root)
                     }
