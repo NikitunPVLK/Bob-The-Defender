@@ -23,3 +23,5 @@ y
 Iapp/src/main/java/com/example/bobthedefender/ui/fragments/ShopFragment.kt,c\4\c46378b9609c781e7f88b7941a9b985d0fc48a97
 z
 Japp/src/main/java/com/example/bobthedefender/ui/fragments/FightFragment.kt,6\f\6f2843c3a739bbf2192c1630d69f1f448fe4b0f2
+‡
+Wapp/src/main/java/com/example/bobthedefender/ui/fragments/adapters/WeaponListAdapter.kt,c\9\c992019eea9a60b9843234562a99c920b460e7b5

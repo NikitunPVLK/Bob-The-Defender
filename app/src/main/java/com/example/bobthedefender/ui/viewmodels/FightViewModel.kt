@@ -85,7 +85,7 @@ class FightViewModel : ViewModel() {
                 if (fightState.value == FightState.IN_PROGRESS) {
                     val enemyHealth = Random.nextInt(1, 10)
                     val x = 2000
-                    val y = Random.nextInt(0, 800)
+                    val y = Random.nextInt(0, 700)
                     val enemy = Enemy(x, y, 160, 180, enemyHealth)
                     innerList.add(enemy)
                     _enemies.postValue(innerList)

@@ -42,10 +42,6 @@ class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         Log.d(TAG, hashCode().toString())
     }
 
-//    fun addCoins(coins: Int) {
-//        _coins.value = _coins.value!!.plus(coins)
-//    }
-
     fun saveCoins(amount: Int) {
         val editor = sharedPreferences.edit()
         editor.putInt("coins", amount)

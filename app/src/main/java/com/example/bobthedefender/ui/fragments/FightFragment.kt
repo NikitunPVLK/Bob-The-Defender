@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsoluteLayout
+import android.widget.AbsoluteLayout.LayoutParams
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -131,16 +132,16 @@ class FightFragment : Fragment() {
         for (enemy in enemies) {
             if (!enemiesMap.contains(enemy)) {
                 val enemyBinding = EnemyBinding.inflate(LayoutInflater.from(context))
+                Glide.with(requireContext())
+                    .asGif()
+                    .load(R.raw.alien_192x192)
+                    .into(enemyBinding.enemyBody)
                 enemyBinding.root.layoutParams = AbsoluteLayout.LayoutParams(
-                    enemy.width,
-                    enemy.height,
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT,
                     enemy.x,
                     enemy.y
                 )
-                Glide.with(requireContext())
-                    .asGif()
-                    .load(R.raw.alien)
-                    .into(enemyBinding.enemyBody)
                 binding.gameFieldContainer.addView(enemyBinding.root)
                 enemy.health.observe(viewLifecycleOwner) {
                     enemyBinding.enemyHp.text =
