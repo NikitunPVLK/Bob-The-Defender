@@ -15,21 +15,26 @@ class GameViewModel : ViewModel() {
 
     val catalog = mutableListOf(
         Weapon(
-            "Name 1",
-            1,
-            100
-        ),
-        Weapon(
-            "Name 1",
+            "Name 2",
             2,
-            200
+            10
         ),
         Weapon(
-            "Name 1",
+            "Name 3",
             3,
-            300
+            10
+        ),
+        Weapon(
+            "Name 4",
+            6,
+            10
         )
     )
+
+    private var currentWeapon: Weapon = Weapon("Name 1", 1, 0)
+
+    val playersDamage: Int
+        get() = currentWeapon.damage
 
     init {
         Log.d(TAG, hashCode().toString())
@@ -37,5 +42,11 @@ class GameViewModel : ViewModel() {
 
     fun addCoins(coins: Int) {
         _coins.value = _coins.value!!.plus(coins)
+    }
+
+    fun onItemBought(weapon: Weapon) {
+        currentWeapon = weapon
+        _coins.value = _coins.value!!.minus(weapon.cost)
+        Log.d(TAG, "$currentWeapon")
     }
 }

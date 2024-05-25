@@ -54,8 +54,8 @@ class FightViewModel : ViewModel() {
         }
     }
 
-    fun hitEnemy(enemy: Enemy): Boolean {
-        if (enemy.receiveDamage(weaponDamage)) {
+    fun hitEnemy(enemy: Enemy, damage: Int): Boolean {
+        if (enemy.receiveDamage(damage)) {
             innerList.remove(enemy)
             _enemies.postValue(innerList)
             _enemiesLeft.value = _enemiesLeft.value!!.minus(1)

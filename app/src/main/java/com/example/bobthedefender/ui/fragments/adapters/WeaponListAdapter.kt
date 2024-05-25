@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.bobthedefender.databinding.WeaponListItemBinding
 import com.example.bobthedefender.ui.models.Weapon
 
-class WeaponListAdapter : ListAdapter<Weapon, WeaponListAdapter.WeaponViewHolder>(DiffCallBack) {
+class WeaponListAdapter(private val onBuyClicked: (Weapon) -> Unit) : ListAdapter<Weapon, WeaponListAdapter.WeaponViewHolder>(DiffCallBack) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -20,24 +20,28 @@ class WeaponListAdapter : ListAdapter<Weapon, WeaponListAdapter.WeaponViewHolder
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onBuyClicked
         )
     }
 
     override fun onBindViewHolder(holder: WeaponViewHolder, position: Int) {
         val current = getItem(position)
-
         holder.bind(current)
     }
 
     class WeaponViewHolder(
-        private var binding: WeaponListItemBinding
+        private var binding: WeaponListItemBinding,
+        private val onBuyClicked: (Weapon) -> Unit
     ) : ViewHolder(binding.root) {
         fun bind(weapon: Weapon) {
             binding.apply {
                 weaponName.text = weapon.name
                 weaponDamage.text = weapon.damage.toString()
                 weaponCost.text = weapon.cost.toString()
+                buyButton.setOnClickListener {
+                    onBuyClicked(weapon)
+                }
             }
         }
     }

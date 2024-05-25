@@ -134,7 +134,7 @@ class FightFragment : Fragment() {
                 enemyAnimator.start()
 
                 enemyBinding.root.setOnClickListener {
-                    if (fightViewModel.hitEnemy(enemy)) {
+                    if (fightViewModel.hitEnemy(enemy, gameViewModel.playersDamage)) {
                         binding.gameFieldContainer.removeView(enemyBinding.root)
                         enemyAnimator.cancel()
                         enemiesMap.remove(enemy)

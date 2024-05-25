@@ -19,7 +19,7 @@ class ShopFragment: Fragment() {
 
     private lateinit var gameViewModel: GameViewModel
 
-    private val adapter = WeaponListAdapter()
+    private lateinit var adapter: WeaponListAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -41,6 +41,8 @@ class ShopFragment: Fragment() {
             binding.coins.text = it.toString()
         }
         super.onViewCreated(view, savedInstanceState)
+
+        adapter = WeaponListAdapter(gameViewModel::onItemBought)
 
         binding.weaponList.adapter = adapter
         binding.weaponList.layoutManager = LinearLayoutManager(context)
