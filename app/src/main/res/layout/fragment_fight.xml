@@ -9,17 +9,41 @@
         android:id="@+id/player_zone"
         android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:background="#00FF00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <ImageView
+        android:id="@+id/battle_field_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Base"
-        android:textColor="@color/black"
-        android:textSize="48sp"
+        android:src="@drawable/field"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"/>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:src="@drawable/grass"
+        app:layout_constraintEnd_toEndOf="@id/fence"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/fence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fence"
+        app:layout_constraintEnd_toEndOf="@id/player_zone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/player"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="@+id/player_zone"
         app:layout_constraintEnd_toEndOf="@+id/player_zone"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +53,6 @@
         android:id="@+id/game_field_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="#FFF200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/player_zone"
@@ -38,8 +61,7 @@
         <View
             android:id="@+id/game_field"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFF200" />
+            android:layout_height="match_parent" />
     </AbsoluteLayout>
 
     <TextView

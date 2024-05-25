@@ -106,6 +106,11 @@ class FightFragment : Fragment() {
             fightViewModel.changePauseState()
             changeAnimationsState()
         }
+
+        Glide.with(requireContext())
+            .asGif()
+            .load(R.raw.bob_x256)
+            .into(binding.player)
     }
 
     private fun changeAnimationsState() {
