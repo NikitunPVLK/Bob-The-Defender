@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bobthedefender.databinding.FragmentShopBinding
 import com.example.bobthedefender.ui.fragments.adapters.WeaponListAdapter
 import com.example.bobthedefender.ui.viewmodels.GameViewModel
+import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 
-class ShopFragment: Fragment() {
+class ShopFragment : Fragment() {
     private var _binding: FragmentShopBinding? = null
     private val binding: FragmentShopBinding
         get() = _binding!!
@@ -23,7 +24,16 @@ class ShopFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val viewModelProvider = ViewModelProvider(requireActivity())
+        val viewModelProvider =
+            ViewModelProvider(
+                requireActivity(),
+                ViewModelFactory(
+                    context.getSharedPreferences(
+                        "game_preferences",
+                        Context.MODE_PRIVATE
+                    )
+                )
+            )
         gameViewModel = viewModelProvider[GameViewModel::class.java]
     }
 

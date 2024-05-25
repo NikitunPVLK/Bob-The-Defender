@@ -32,6 +32,9 @@ class FightViewModel : ViewModel() {
 
     private var enemiesToKill = 10
 
+    val points: Int
+        get() = enemiesToKill
+
     private val _enemiesLeft = MutableLiveData(enemiesToKill)
     val enemiesLeft: LiveData<Int>
         get() = _enemiesLeft

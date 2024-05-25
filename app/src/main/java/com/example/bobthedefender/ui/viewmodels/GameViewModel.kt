@@ -1,15 +1,17 @@
 package com.example.bobthedefender.ui.viewmodels
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bobthedefender.ui.models.Weapon
 
-class GameViewModel : ViewModel() {
+class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
     private val TAG = "GameViewModel"
 
-    private val _coins = MutableLiveData(0)
+    private val _coins: MutableLiveData<Int>
+        get() = MutableLiveData(sharedPreferences.getInt("coins", 0))
     val coins: LiveData<Int>
         get() = _coins
 
@@ -40,8 +42,14 @@ class GameViewModel : ViewModel() {
         Log.d(TAG, hashCode().toString())
     }
 
-    fun addCoins(coins: Int) {
-        _coins.value = _coins.value!!.plus(coins)
+//    fun addCoins(coins: Int) {
+//        _coins.value = _coins.value!!.plus(coins)
+//    }
+
+    fun saveCoins(amount: Int) {
+        val editor = sharedPreferences.edit()
+        editor.putInt("coins", amount)
+        editor.apply()
     }
 
     fun onItemBought(weapon: Weapon) {

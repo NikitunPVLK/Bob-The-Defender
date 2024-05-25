@@ -21,6 +21,7 @@ import com.example.bobthedefender.ui.viewmodels.FightViewModel
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
 import com.example.bobthedefender.ui.viewmodels.GameViewModel
+import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 
 class FightFragment : Fragment() {
     private val TAG = "FightFragment"
@@ -46,7 +47,15 @@ class FightFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val viewModelProvider = ViewModelProvider(requireActivity())
+        val viewModelProvider = ViewModelProvider(
+            requireActivity(),
+            ViewModelFactory(
+                context.getSharedPreferences(
+                    "game_preferences",
+                    Context.MODE_PRIVATE
+                )
+            )
+        )
         fightViewModel = viewModelProvider[FightViewModel::class.java]
         gameViewModel = viewModelProvider[GameViewModel::class.java]
     }
@@ -74,6 +83,7 @@ class FightFragment : Fragment() {
                 }
 
                 FightState.WIN -> {
+                    gameViewModel.saveCoins(fightViewModel.points)
                     findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
                 }
 
@@ -136,7 +146,8 @@ class FightFragment : Fragment() {
                     enemyBinding.enemyHp.text =
                         enemy.health.value.toString()
                 }
-                val enemyAnimator = ObjectAnimator.ofFloat(enemyBinding.root, View.TRANSLATION_X, -2400f)
+                val enemyAnimator =
+                    ObjectAnimator.ofFloat(enemyBinding.root, View.TRANSLATION_X, -2400f)
                 enemyAnimator.addUpdateListener { animation ->
                     val animatedValue = animation.animatedValue as Float
                     if (animatedValue == -2400f) {
@@ -153,7 +164,7 @@ class FightFragment : Fragment() {
                         binding.gameFieldContainer.removeView(enemyBinding.root)
                         enemyAnimator.cancel()
                         enemiesMap.remove(enemy)
-                        gameViewModel.addCoins(1)
+//                        gameViewModel.addCoins(1)
                     }
                 }
 
