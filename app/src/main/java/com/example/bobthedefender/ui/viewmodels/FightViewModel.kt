@@ -13,6 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 class FightViewModel : ViewModel() {
     private val _health = MutableLiveData(0)
@@ -79,9 +80,10 @@ class FightViewModel : ViewModel() {
         spawnJob = viewModelScope.launch {
             while (counter < enemiesToKill) {
                 if (fightState.value == FightState.IN_PROGRESS) {
+                    val enemyHealth = Random.nextInt(1, 10)
                     val x = 2000
                     val y = Random.nextInt(0, 800)
-                    val enemy = Enemy(x, y, 160, 180)
+                    val enemy = Enemy(x, y, 160, 180, enemyHealth)
                     innerList.add(enemy)
                     _enemies.postValue(innerList)
                     counter += 1
