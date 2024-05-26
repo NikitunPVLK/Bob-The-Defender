@@ -1,6 +1,7 @@
 package com.example.bobthedefender.ui.fragments
 
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -75,6 +76,7 @@ class FightFragment : Fragment() {
         fightViewModel.startGame()
 
         fightViewModel.fightState.observe(viewLifecycleOwner) {
+            showAlert(it)
             when (it) {
                 FightState.LOSE -> {
                     clearField()
@@ -83,7 +85,6 @@ class FightFragment : Fragment() {
 
                 FightState.WIN -> {
                     gameViewModel.saveCoins(fightViewModel.points)
-                    findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
                 }
 
                 else -> {}
@@ -111,6 +112,36 @@ class FightFragment : Fragment() {
             .asGif()
             .load(R.raw.bob_x256)
             .into(binding.player)
+    }
+
+    private fun showAlert(fightState: FightState) {
+        val builder = AlertDialog.Builder(requireContext())
+        when (fightState) {
+            FightState.PAUSED -> {
+                builder.setTitle("Game paused")
+                builder.create().show()
+            }
+
+            FightState.WIN -> {
+                builder.setTitle("You won!")
+                builder.setCancelable(false)
+                builder.setPositiveButton("Go to lobby") { dialog, which ->
+                    findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
+                }
+                builder.create().show()
+            }
+
+            FightState.LOSE -> {
+                builder.setTitle("You lost...")
+                builder.setCancelable(false)
+                builder.setPositiveButton("Go to lobby") { dialog, which ->
+                    findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
+                }
+                builder.create().show()
+            }
+
+            else -> {}
+        }
     }
 
     private fun changeAnimationsState() {
