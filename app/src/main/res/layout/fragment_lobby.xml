@@ -2,24 +2,84 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#020629">
 
-    <com.google.android.material.button.MaterialButton
+    <TextView
+        android:id="@+id/game_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/aldrich"
+        android:text="BOB THE\nDEFENDER"
+        android:textAlignment="center"
+        android:textColor="#DCB700"
+        android:textSize="64sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/player_view"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="@id/game_name"
+        app:layout_constraintEnd_toStartOf="@id/game_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/game_name" />
+
+    <ImageView
+        android:id="@+id/alien_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@id/game_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/game_name"
+        app:layout_constraintTop_toTopOf="@id/game_name" />
+
+    <Button
         android:id="@+id/start_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#DCB700"
+        android:fontFamily="@font/aldrich"
+        android:text="Start"
+        android:textAlignment="center"
+        android:textColor="#635200"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Start"/>
+        app:layout_constraintTop_toBottomOf="@+id/game_name" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
+        android:id="@+id/shop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/shop_button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="#DCB700"
+        android:fontFamily="@font/aldrich"
+        android:text="Shop"
+        android:textAlignment="center"
+        android:textColor="#635200"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/start_game_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Shop"/>
+        app:layout_constraintStart_toEndOf="@+id/start_game_button"
+        app:layout_constraintTop_toTopOf="@+id/start_game_button" />
+
+    <Button
+        android:id="@+id/rules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#DCB700"
+        android:fontFamily="@font/aldrich"
+        android:text="Rules"
+        android:textAlignment="center"
+        android:textColor="#635200"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/start_game_button"
+        app:layout_constraintEnd_toStartOf="@+id/start_game_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_game_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

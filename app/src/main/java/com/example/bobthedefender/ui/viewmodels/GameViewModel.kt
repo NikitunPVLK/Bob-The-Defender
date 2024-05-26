@@ -61,4 +61,8 @@ class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
             Log.d(TAG, "$currentWeapon")
         }
     }
+
+    fun isBuyEnabled(weapon: Weapon): Boolean {
+        return weapon.cost <= _coins.value!!
+    }
 }

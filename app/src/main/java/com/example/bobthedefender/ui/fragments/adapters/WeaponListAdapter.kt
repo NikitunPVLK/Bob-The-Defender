@@ -12,6 +12,7 @@ import com.example.bobthedefender.ui.models.Weapon
 
 class WeaponListAdapter(
     private val resources: Resources,
+    private val isBuyEnabled: (Weapon) -> Boolean,
     private val onBuyClicked: (Weapon) -> Unit
 ) : ListAdapter<Weapon, WeaponListAdapter.WeaponViewHolder>(DiffCallBack) {
 
@@ -26,6 +27,7 @@ class WeaponListAdapter(
                 false
             ),
             resources,
+            isBuyEnabled,
             onBuyClicked
         )
     }
@@ -38,7 +40,8 @@ class WeaponListAdapter(
     class WeaponViewHolder(
         private var binding: WeaponListItemBinding,
         private var resources: Resources,
-        private val onBuyClicked: (Weapon) -> Unit
+        private val isBuyEnabled: (Weapon) -> Boolean,
+        private val onBuyClicked: (Weapon) -> Unit,
     ) : ViewHolder(binding.root) {
         fun bind(weapon: Weapon) {
             binding.apply {
@@ -52,6 +55,7 @@ class WeaponListAdapter(
                         null
                     )
                 )
+                buyButton.isEnabled = isBuyEnabled(weapon)
                 buyButton.setOnClickListener {
                     onBuyClicked(weapon)
                 }

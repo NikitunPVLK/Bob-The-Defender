@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#020629"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,24 +14,33 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+
     <TextView
         android:id="@+id/coins_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Coins: "
-        app:layout_constraintEnd_toStartOf="@id/coins"
-        app:layout_constraintTop_toTopOf="@id/coins"/>
+        android:fontFamily="@font/aldrich"
+        android:textColor="#DCB700"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/weapon_list"/>
 
     <TextView
         android:id="@+id/coins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:fontFamily="@font/aldrich"
+        android:textColor="#DCB700"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/coins_label"
+        app:layout_constraintEnd_toEndOf="@id/coins_label"
+        app:layout_constraintTop_toBottomOf="@id/coins_label"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
