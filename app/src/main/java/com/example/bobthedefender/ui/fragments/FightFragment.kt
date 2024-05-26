@@ -16,13 +16,15 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.bobthedefender.R
 import com.example.bobthedefender.databinding.EnemyBinding
+import com.example.bobthedefender.databinding.FightDialogBinding
 import com.example.bobthedefender.databinding.FragmentFightBinding
 import com.example.bobthedefender.databinding.HeartBinding
-import com.example.bobthedefender.ui.viewmodels.FightViewModel
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
+import com.example.bobthedefender.ui.viewmodels.FightViewModel
 import com.example.bobthedefender.ui.viewmodels.GameViewModel
 import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
+
 
 class FightFragment : Fragment() {
     private val TAG = "FightFragment"
@@ -120,33 +122,43 @@ class FightFragment : Fragment() {
 
     private fun showAlert(fightState: FightState) {
         val builder = AlertDialog.Builder(requireContext())
+        val dialogBinding =
+            FightDialogBinding.inflate(LayoutInflater.from(requireContext()))
+        builder.setView(dialogBinding.root)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         when (fightState) {
             FightState.PAUSED -> {
-                builder.setTitle("Game paused")
-                builder.setCancelable(false)
-                builder.setPositiveButton("Resume") { _, _ ->
+                dialogBinding.dialogText.text = "Game paused"
+                dialogBinding.dialogButton.text = "Resume"
+                dialogBinding.dialogButton.setOnClickListener {
                     fightViewModel.changePauseState()
                     changeAnimationsState()
+                    dialog.dismiss()
                 }
-                builder.create().show()
+                dialog.show()
             }
 
             FightState.WIN -> {
-                builder.setTitle("You won!")
-                builder.setCancelable(false)
-                builder.setPositiveButton("Go to lobby") { _, _ ->
+                dialogBinding.dialogText.text = "You won!"
+                dialogBinding.dialogButton.text = "Go to lobby"
+                dialogBinding.dialogButton.setOnClickListener {
+                    dialog.dismiss()
                     findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
                 }
-                builder.create().show()
+                dialog.show()
             }
 
             FightState.LOSE -> {
-                builder.setTitle("You lost...")
-                builder.setCancelable(false)
-                builder.setPositiveButton("Go to lobby") { _, _ ->
+                dialogBinding.dialogText.text = "You lost..."
+                dialogBinding.dialogButton.text = "Go to lobby"
+                dialogBinding.dialogButton.setOnClickListener {
+                    dialog.dismiss()
                     findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
                 }
-                builder.create().show()
+                dialog.show()
             }
 
             else -> {}
