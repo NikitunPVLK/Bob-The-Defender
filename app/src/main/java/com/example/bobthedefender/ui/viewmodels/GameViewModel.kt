@@ -12,8 +12,7 @@ import com.example.bobthedefender.ui.models.Weapon
 class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
     private val TAG = "GameViewModel"
 
-    private val _coins: MutableLiveData<Int>
-        get() = MutableLiveData(sharedPreferences.getInt("coins", 0))
+    private val _coins = MutableLiveData(sharedPreferences.getInt("coins", 0))
     val coins: LiveData<Int>
         get() = _coins
 
@@ -49,13 +48,19 @@ class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
 
     fun saveCoins(amount: Int) {
         val editor = sharedPreferences.edit()
-        editor.putInt("coins", coins.value!!.plus(amount))
+        _coins.value = _coins.value!!.plus(amount)
+        editor.putInt("coins", coins.value!!)
         editor.apply()
     }
 
     fun onItemBought(weapon: Weapon) {
-        currentWeapon = weapon
-        _coins.value = _coins.value!!.minus(weapon.cost)
-        Log.d(TAG, "$currentWeapon")
+        if (weapon.cost <= _coins.value!!) {
+            currentWeapon = weapon
+            _coins.value = _coins.value!!.minus(weapon.cost)
+            val editor = sharedPreferences.edit()
+            editor.putInt("coins", coins.value!!)
+            editor.apply()
+            Log.d(TAG, "$currentWeapon")
+        }
     }
 }
