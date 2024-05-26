@@ -47,14 +47,13 @@ class FightViewModel : ViewModel() {
     }
 
     fun damagePlayer(enemy: Enemy) {
+        _enemiesLeft.value = _enemiesLeft.value?.minus(1)
         innerList.remove(enemy)
         _health.value = _health.value!! - 1
         if (_health.value!! <= 0) {
             stopGame()
             _fightState.value = FightState.LOSE
-        }
-        _enemiesLeft.value = _enemiesLeft.value?.minus(1)
-        if (enemiesLeft.value!! <= 0 && innerList.isEmpty()) {
+        } else if (enemiesLeft.value!! <= 0 && innerList.isEmpty()) {
             stopGame()
             _fightState.value = FightState.WIN
         }

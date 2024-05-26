@@ -80,7 +80,6 @@ class FightFragment : Fragment() {
             when (it) {
                 FightState.LOSE -> {
                     clearField()
-                    findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
                 }
 
                 FightState.WIN -> {
@@ -103,7 +102,7 @@ class FightFragment : Fragment() {
             spawnEnemies(it)
         }
 
-        binding.playerZone.setOnClickListener {
+        binding.pauseButton.setOnClickListener {
             fightViewModel.changePauseState()
             changeAnimationsState()
         }
@@ -119,6 +118,11 @@ class FightFragment : Fragment() {
         when (fightState) {
             FightState.PAUSED -> {
                 builder.setTitle("Game paused")
+                builder.setCancelable(false)
+                builder.setPositiveButton("Resume") { _, _ ->
+                    fightViewModel.changePauseState()
+                    changeAnimationsState()
+                }
                 builder.create().show()
             }
 
