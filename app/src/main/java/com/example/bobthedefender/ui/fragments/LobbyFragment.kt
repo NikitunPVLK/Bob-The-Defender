@@ -35,6 +35,10 @@ class LobbyFragment : Fragment() {
             navigateToShop()
         }
 
+        binding.rulesButton.setOnClickListener {
+            navigateToRules()
+        }
+
         Glide.with(requireContext())
             .asGif()
             .load(R.raw.bob_x256)
@@ -44,6 +48,10 @@ class LobbyFragment : Fragment() {
             .asGif()
             .load(R.raw.alien_192x192)
             .into(binding.alienView)
+    }
+
+    private fun navigateToRules() {
+        findNavController().navigate(R.id.action_startFragment_to_rulesFragment)
     }
 
     private fun navigateToShop() {

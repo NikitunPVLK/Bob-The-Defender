@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#020629">
+
+    <TextView
+        android:id="@+id/rule_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/aldrich"
+        android:text="1. Hit aliens by tapping on them."
+        android:textColor="#DCB700"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@id/rule_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rule_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2. Earn coins by killing aliens."
+        android:fontFamily="@font/aldrich"
+        android:textColor="#DCB700"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="@id/rule_1"
+        app:layout_constraintTop_toBottomOf="@id/rule_1"
+        app:layout_constraintBottom_toTopOf="@id/rule_3"
+        />
+
+    <TextView
+        android:id="@+id/rule_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3. Buy guns."
+        android:fontFamily="@font/aldrich"
+        android:textColor="#DCB700"
+        android:textSize="48sp"
+        app:layout_constraintTop_toBottomOf="@id/rule_2"
+        app:layout_constraintStart_toStartOf="@id/rule_2"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/arrow_forward"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

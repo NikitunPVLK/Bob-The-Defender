@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bobthedefender.databinding.FragmentShopBinding
 import com.example.bobthedefender.ui.fragments.adapters.WeaponListAdapter
@@ -63,5 +64,9 @@ class ShopFragment : Fragment() {
             GridLayoutManager(context, 3)
 
         adapter.submitList(gameViewModel.catalog)
+
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

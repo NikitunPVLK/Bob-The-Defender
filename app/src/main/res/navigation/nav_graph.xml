@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_startFragment_to_shopScreenFragment"
             app:destination="@id/shopScreenFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_rulesFragment"
+            app:destination="@id/rulesFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameScreenFragment"
@@ -26,4 +29,8 @@
         android:id="@+id/shopScreenFragment"
         android:name="com.example.bobthedefender.ui.fragments.ShopFragment"
         android:label="ShopScreenFragment" />
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.example.bobthedefender.ui.fragments.RulesFragment"
+        android:label="RulesFragment" />
 </navigation>

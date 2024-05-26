@@ -54,6 +54,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/player_zone" />
 
+    <ImageView
+        android:id="@+id/fire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/fire"
+        app:layout_constraintBottom_toBottomOf="@id/player"
+        app:layout_constraintStart_toEndOf="@id/player"
+        app:layout_constraintTop_toTopOf="@id/player" />
+
     <AbsoluteLayout
         android:id="@+id/game_field_container"
         android:layout_width="0dp"

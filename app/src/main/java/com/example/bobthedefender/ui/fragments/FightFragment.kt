@@ -41,6 +41,8 @@ class FightFragment : Fragment() {
     private var displayWidth: Int = 0
     private var displayHeight: Int = 0
 
+    private lateinit var fireAnimator: ObjectAnimator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val displayMetrics = resources.displayMetrics
@@ -118,6 +120,12 @@ class FightFragment : Fragment() {
             .asGif()
             .load(R.raw.bob_x256)
             .into(binding.player)
+
+        binding.fire.alpha = 0f
+        fireAnimator = ObjectAnimator.ofFloat(binding.fire, "alpha", 0f, 1f, 0f)
+        fireAnimator.duration = 100
+        fireAnimator.interpolator = LinearInterpolator()
+
     }
 
     private fun showAlert(fightState: FightState) {
@@ -218,6 +226,10 @@ class FightFragment : Fragment() {
                 enemyAnimator.start()
 
                 enemyBinding.root.setOnClickListener {
+                    if (fireAnimator.isRunning) {
+                        fireAnimator.cancel()
+                    }
+                    fireAnimator.start()
                     if (fightViewModel.hitEnemy(enemy, gameViewModel.playersDamage)) {
                         binding.gameFieldContainer.removeView(enemyBinding.root)
                         enemyAnimator.cancel()
