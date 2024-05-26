@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.bobthedefender.databinding.FragmentShopBinding
 import com.example.bobthedefender.ui.fragments.adapters.WeaponListAdapter
 import com.example.bobthedefender.ui.viewmodels.GameViewModel
@@ -52,10 +53,11 @@ class ShopFragment : Fragment() {
         }
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = WeaponListAdapter(gameViewModel::onItemBought)
+        adapter = WeaponListAdapter(resources, gameViewModel::onItemBought)
 
         binding.weaponList.adapter = adapter
-        binding.weaponList.layoutManager = LinearLayoutManager(context)
+        binding.weaponList.layoutManager =
+            GridLayoutManager(context, 3)
 
         adapter.submitList(gameViewModel.catalog)
     }

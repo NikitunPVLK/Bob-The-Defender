@@ -8,8 +8,11 @@
         android:id="@+id/weapon_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        android:scrollbars="horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
 
     </androidx.recyclerview.widget.RecyclerView>
     <TextView

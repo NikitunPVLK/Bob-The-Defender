@@ -1,16 +1,20 @@
 package com.example.bobthedefender.ui.fragments.adapters
 
-import android.text.Html
+import android.content.res.Resources
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.bobthedefender.databinding.WeaponListItemBinding
 import com.example.bobthedefender.ui.models.Weapon
 
-class WeaponListAdapter(private val onBuyClicked: (Weapon) -> Unit) : ListAdapter<Weapon, WeaponListAdapter.WeaponViewHolder>(DiffCallBack) {
+class WeaponListAdapter(
+    private val resources: Resources,
+    private val onBuyClicked: (Weapon) -> Unit
+) : ListAdapter<Weapon, WeaponListAdapter.WeaponViewHolder>(DiffCallBack) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,6 +25,7 @@ class WeaponListAdapter(private val onBuyClicked: (Weapon) -> Unit) : ListAdapte
                 parent,
                 false
             ),
+            resources,
             onBuyClicked
         )
     }
@@ -32,6 +37,7 @@ class WeaponListAdapter(private val onBuyClicked: (Weapon) -> Unit) : ListAdapte
 
     class WeaponViewHolder(
         private var binding: WeaponListItemBinding,
+        private var resources: Resources,
         private val onBuyClicked: (Weapon) -> Unit
     ) : ViewHolder(binding.root) {
         fun bind(weapon: Weapon) {
@@ -39,6 +45,13 @@ class WeaponListAdapter(private val onBuyClicked: (Weapon) -> Unit) : ListAdapte
                 weaponName.text = weapon.name
                 weaponDamage.text = weapon.damage.toString()
                 weaponCost.text = weapon.cost.toString()
+                weaponImage.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        weapon.imageId,
+                        null
+                    )
+                )
                 buyButton.setOnClickListener {
                     onBuyClicked(weapon)
                 }
