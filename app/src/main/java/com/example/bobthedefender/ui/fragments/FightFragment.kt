@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsoluteLayout
+import android.view.animation.LinearInterpolator
 import android.widget.AbsoluteLayout.LayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -129,7 +129,7 @@ class FightFragment : Fragment() {
             FightState.WIN -> {
                 builder.setTitle("You won!")
                 builder.setCancelable(false)
-                builder.setPositiveButton("Go to lobby") { dialog, which ->
+                builder.setPositiveButton("Go to lobby") { _, _ ->
                     findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
                 }
                 builder.create().show()
@@ -138,7 +138,7 @@ class FightFragment : Fragment() {
             FightState.LOSE -> {
                 builder.setTitle("You lost...")
                 builder.setCancelable(false)
-                builder.setPositiveButton("Go to lobby") { dialog, which ->
+                builder.setPositiveButton("Go to lobby") { _, _ ->
                     findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
                 }
                 builder.create().show()
@@ -174,7 +174,7 @@ class FightFragment : Fragment() {
                     .asGif()
                     .load(R.raw.alien_192x192)
                     .into(enemyBinding.enemyBody)
-                enemyBinding.root.layoutParams = AbsoluteLayout.LayoutParams(
+                enemyBinding.root.layoutParams = LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT,
                     enemy.x,
@@ -186,10 +186,11 @@ class FightFragment : Fragment() {
                         enemy.health.value.toString()
                 }
                 val enemyAnimator =
-                    ObjectAnimator.ofFloat(enemyBinding.root, View.TRANSLATION_X, -2400f)
+                    ObjectAnimator.ofFloat(enemyBinding.root, View.TRANSLATION_X, -2150f)
+                enemyAnimator.interpolator = LinearInterpolator()
                 enemyAnimator.addUpdateListener { animation ->
                     val animatedValue = animation.animatedValue as Float
-                    if (animatedValue == -2400f) {
+                    if (animatedValue == -2150f) {
                         fightViewModel.damagePlayer(enemy)
                         enemiesMap.remove(enemy)
                         binding.gameFieldContainer.removeView(enemyBinding.root)
@@ -203,7 +204,6 @@ class FightFragment : Fragment() {
                         binding.gameFieldContainer.removeView(enemyBinding.root)
                         enemyAnimator.cancel()
                         enemiesMap.remove(enemy)
-//                        gameViewModel.addCoins(1)
                     }
                 }
 

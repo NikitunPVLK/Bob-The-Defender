@@ -1,8 +1,6 @@
 package com.example.bobthedefender.ui.viewmodels
 
-import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Resources
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

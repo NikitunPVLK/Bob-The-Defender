@@ -17,7 +17,6 @@
         android:id="@+id/battle_field_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/field"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +25,6 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="0dp"
-        android:src="@drawable/grass"
         app:layout_constraintEnd_toEndOf="@id/fence"
         app:layout_constraintTop_toTopOf="parent" />
 
