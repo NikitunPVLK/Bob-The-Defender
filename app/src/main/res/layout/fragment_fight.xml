@@ -9,6 +9,7 @@
         android:id="@+id/player_zone"
         android:layout_width="150dp"
         android:layout_height="match_parent"
+        android:background="@drawable/grass"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,10 +18,10 @@
         android:id="@+id/battle_field_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="150dp"
@@ -34,9 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/fence"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/player_zone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/player"
@@ -45,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_zone"
         app:layout_constraintEnd_toEndOf="@+id/player_zone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <AbsoluteLayout
         android:id="@+id/game_field_container"
@@ -59,43 +60,68 @@
         <View
             android:id="@+id/game_field"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@drawable/field"/>
     </AbsoluteLayout>
 
-    <TextView
-        android:id="@+id/enemies_left_label"
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enemies left: "
-        app:layout_constraintEnd_toStartOf="@id/enemies_left"
-        app:layout_constraintTop_toTopOf="@id/enemies_left"
-        />
-
-    <TextView
-        android:id="@+id/enemies_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@id/health_bar"
-        app:layout_constraintTop_toTopOf="@id/health_bar"
-        />
-
-    <LinearLayout
-        android:id="@+id/health_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@id/pause_button"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-        android:id="@+id/pause_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pause"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="100dp"
+        app:cardMaxElevation="16dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="65dp"
+            android:gravity="center|end"
+            android:background="@drawable/wood"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/health_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toStartOf="@id/pause_button"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/enemies_left_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enemies left: "
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@id/enemies_left"
+                app:layout_constraintTop_toTopOf="@id/enemies_left" />
+
+            <TextView
+                android:id="@+id/enemies_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="10"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@id/health_bar"
+                app:layout_constraintTop_toTopOf="@id/health_bar" />
+
+            <ImageButton
+                android:id="@+id/pause_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/pause_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="10dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
