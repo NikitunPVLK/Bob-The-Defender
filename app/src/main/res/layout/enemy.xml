@@ -6,32 +6,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/enemy_health"
+        android:layout_width="80dp"
+        android:layout_height="5dp"
+        android:background="#DC0202"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <ImageView
         android:id="@+id/enemy_body"
-        android:layout_width="192px"
-        android:layout_height="192px"
-        android:layout_marginTop="10dp"
+        android:layout_width="80dp"
+        android:layout_height="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enemy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/enemy_hp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/enemy_health" />
 </androidx.constraintlayout.widget.ConstraintLayout>

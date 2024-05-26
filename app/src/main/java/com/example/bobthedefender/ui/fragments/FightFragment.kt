@@ -187,8 +187,9 @@ class FightFragment : Fragment() {
                 )
                 binding.gameFieldContainer.addView(enemyBinding.root)
                 enemy.health.observe(viewLifecycleOwner) {
-                    enemyBinding.enemyHp.text =
-                        enemy.health.value.toString()
+                    val layoutParams = enemyBinding.enemyHealth.layoutParams
+                    layoutParams.width = it * 10
+                    enemyBinding.enemyHealth.layoutParams = layoutParams
                 }
                 val enemyAnimator =
                     ObjectAnimator.ofFloat(enemyBinding.root, View.TRANSLATION_X, -2150f)
