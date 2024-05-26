@@ -1,5 +1,6 @@
 package com.example.bobthedefender.ui.viewmodels
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.util.Log
@@ -7,12 +8,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bobthedefender.R
+import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.models.Weapon
 
 class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
     private val TAG = "GameViewModel"
 
-    private val _coins = MutableLiveData(sharedPreferences.getInt("coins", 0))
+    private val _coins = MutableLiveData(SharedPrefsManager.getCoins(sharedPreferences))
     val coins: LiveData<Int>
         get() = _coins
 
@@ -37,7 +39,8 @@ class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         )
     )
 
-    private var currentWeapon: Weapon = Weapon("Pistol", 1)
+    private var currentWeapon: Weapon =
+        SharedPrefsManager.getWeapon(sharedPreferences) ?: Weapon("Pistol", 1)
 
     val playersDamage: Int
         get() = currentWeapon.damage
@@ -47,19 +50,16 @@ class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
     }
 
     fun saveCoins(amount: Int) {
-        val editor = sharedPreferences.edit()
         _coins.value = _coins.value!!.plus(amount)
-        editor.putInt("coins", coins.value!!)
-        editor.apply()
+        SharedPrefsManager.saveCoins(_coins.value!!, sharedPreferences)
     }
 
     fun onItemBought(weapon: Weapon) {
         if (weapon.cost <= _coins.value!!) {
             currentWeapon = weapon
+            SharedPrefsManager.saveWeapon(weapon, sharedPreferences)
             _coins.value = _coins.value!!.minus(weapon.cost)
-            val editor = sharedPreferences.edit()
-            editor.putInt("coins", coins.value!!)
-            editor.apply()
+            SharedPrefsManager.saveCoins(_coins.value!!, sharedPreferences)
             Log.d(TAG, "$currentWeapon")
         }
     }
