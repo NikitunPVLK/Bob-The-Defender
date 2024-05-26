@@ -13,9 +13,10 @@
             android:id="@+id/weapon_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="NAME PLACEHOLDER"
+            app:layout_constraintBottom_toTopOf="@+id/weapon_damage_label"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,62 +24,65 @@
             android:id="@+id/weapon_damage_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="Damage: "
+            app:layout_constraintBottom_toTopOf="@+id/weapon_cost_label"
             app:layout_constraintEnd_toStartOf="@+id/weapon_damage"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weapon_name" />
+            app:layout_constraintTop_toBottomOf="@+id/weapon_name" />
 
         <TextView
             android:id="@+id/weapon_damage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="0"
+            app:layout_constraintBottom_toBottomOf="@+id/weapon_damage_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/weapon_damage_label"
-            app:layout_constraintTop_toBottomOf="@id/weapon_name" />
+            app:layout_constraintTop_toTopOf="@+id/weapon_damage_label" />
 
         <TextView
             android:id="@+id/weapon_cost_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="Cost: "
+            app:layout_constraintBottom_toTopOf="@+id/weapon_image"
             app:layout_constraintEnd_toStartOf="@+id/weapon_cost"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weapon_damage" />
+            app:layout_constraintTop_toBottomOf="@+id/weapon_damage_label" />
 
         <TextView
             android:id="@+id/weapon_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="0"
+            app:layout_constraintBottom_toBottomOf="@+id/weapon_cost_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/weapon_cost_label"
-            app:layout_constraintTop_toBottomOf="@id/weapon_damage" />
+            app:layout_constraintTop_toTopOf="@+id/weapon_cost_label" />
 
         <ImageView
             android:id="@+id/weapon_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/m16"
             app:layout_constraintBottom_toTopOf="@+id/buy_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weapon_cost" />
+            app:layout_constraintTop_toBottomOf="@+id/weapon_cost_label" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buy_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
             android:text="Buy"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
