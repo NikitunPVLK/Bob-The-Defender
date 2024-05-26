@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class FightViewModel : ViewModel() {
-    private val _health = MutableLiveData(0)
+    private val _health = MutableLiveData(3)
     val health: LiveData<Int>
         get() = _health
 
@@ -39,7 +39,7 @@ class FightViewModel : ViewModel() {
     private lateinit var spawnJob: Job
 
     fun startGame() {
-        _health.value = 10
+        _health.value = 3
         enemiesToKill = 10
         _enemiesLeft.value = enemiesToKill
         _fightState.value = FightState.IN_PROGRESS

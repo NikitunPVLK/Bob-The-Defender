@@ -77,26 +77,17 @@
         android:layout_height="wrap_content"
         android:text="10"
         android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@id/health_label"
-        app:layout_constraintTop_toTopOf="@id/health_label"
+        app:layout_constraintEnd_toStartOf="@id/health_bar"
+        app:layout_constraintTop_toTopOf="@id/health_bar"
         />
 
-    <TextView
-        android:id="@+id/health_label"
+    <LinearLayout
+        android:id="@+id/health_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HP: "
-        app:layout_constraintEnd_toStartOf="@id/health"
-        app:layout_constraintTop_toTopOf="@id/health" />
-
-    <TextView
-        android:id="@+id/health"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="10"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@id/pause_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/pause_button"

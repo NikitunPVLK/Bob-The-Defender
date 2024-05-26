@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.bobthedefender.R
 import com.example.bobthedefender.databinding.EnemyBinding
 import com.example.bobthedefender.databinding.FragmentFightBinding
+import com.example.bobthedefender.databinding.HeartBinding
 import com.example.bobthedefender.ui.viewmodels.FightViewModel
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
@@ -95,7 +96,11 @@ class FightFragment : Fragment() {
         }
 
         fightViewModel.health.observe(viewLifecycleOwner) {
-            binding.health.text = it.toString()
+            binding.healthBar.removeAllViews()
+            for (i in 0 until it) {
+                val heartBinding = HeartBinding.inflate(LayoutInflater.from(context))
+                binding.healthBar.addView(heartBinding.root)
+            }
         }
 
         fightViewModel.enemies.observe(viewLifecycleOwner) {
