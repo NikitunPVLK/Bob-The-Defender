@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bobthedefender.databinding.FragmentShopBinding
 import com.example.bobthedefender.ui.fragments.adapters.WeaponListAdapter
+import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.viewmodels.GameViewModel
 import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 
@@ -30,7 +31,7 @@ class ShopFragment : Fragment() {
                 requireActivity(),
                 ViewModelFactory(
                     context.getSharedPreferences(
-                        "game_preferences",
+                        SharedPrefsManager.GAME_PREFERENCES,
                         Context.MODE_PRIVATE
                     )
                 )

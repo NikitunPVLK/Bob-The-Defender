@@ -125,10 +125,11 @@
 
             <TextView
                 android:id="@+id/enemies_left"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:text="10"
+                android:textAlignment="center"
                 android:fontFamily="@font/aldrich"
                 android:textSize="20sp"
                 android:textColor="#DCB700"

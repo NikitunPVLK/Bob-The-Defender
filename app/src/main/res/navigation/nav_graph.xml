@@ -31,6 +31,6 @@
         android:label="ShopScreenFragment" />
     <fragment
         android:id="@+id/rulesFragment"
-        android:name="com.example.bobthedefender.ui.fragments.RulesFragment"
+        android:name="com.example.bobthedefender.ui.fragments.ResultsFragment"
         android:label="RulesFragment" />
 </navigation>

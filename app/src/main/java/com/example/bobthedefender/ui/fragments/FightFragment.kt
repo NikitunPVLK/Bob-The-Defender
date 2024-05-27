@@ -19,6 +19,7 @@ import com.example.bobthedefender.databinding.EnemyBinding
 import com.example.bobthedefender.databinding.FightDialogBinding
 import com.example.bobthedefender.databinding.FragmentFightBinding
 import com.example.bobthedefender.databinding.HeartBinding
+import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
 import com.example.bobthedefender.ui.viewmodels.FightViewModel
@@ -56,7 +57,7 @@ class FightFragment : Fragment() {
             requireActivity(),
             ViewModelFactory(
                 context.getSharedPreferences(
-                    "game_preferences",
+                    SharedPrefsManager.GAME_PREFERENCES,
                     Context.MODE_PRIVATE
                 )
             )
@@ -88,7 +89,7 @@ class FightFragment : Fragment() {
                 }
 
                 FightState.WIN -> {
-                    gameViewModel.saveCoins(fightViewModel.points)
+                    gameViewModel.saveCoins(fightViewModel.coins)
                 }
 
                 else -> {}

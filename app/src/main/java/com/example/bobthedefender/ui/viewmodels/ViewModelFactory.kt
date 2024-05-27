@@ -9,7 +9,7 @@ class ViewModelFactory(private val sharedPreferences: SharedPreferences) :
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FightViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return FightViewModel() as T
+            return FightViewModel(sharedPreferences) as T
         } else if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return GameViewModel(sharedPreferences) as T

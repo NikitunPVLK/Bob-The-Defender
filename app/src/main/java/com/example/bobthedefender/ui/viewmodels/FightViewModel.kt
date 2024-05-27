@@ -1,10 +1,12 @@
 package com.example.bobthedefender.ui.viewmodels
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
 import kotlinx.coroutines.Job
@@ -12,7 +14,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class FightViewModel : ViewModel() {
+class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
     private val _health = MutableLiveData(3)
     val health: LiveData<Int>
         get() = _health
@@ -29,8 +31,7 @@ class FightViewModel : ViewModel() {
 
     private var enemiesToKill = 10
 
-    val points: Int
-        get() = enemiesToKill
+    private var enemiesKilled = 0
 
     private val _enemiesLeft = MutableLiveData(enemiesToKill)
     val enemiesLeft: LiveData<Int>
@@ -38,9 +39,13 @@ class FightViewModel : ViewModel() {
 
     private lateinit var spawnJob: Job
 
+    var coins: Int = 0
+
     fun startGame() {
         _health.value = 3
         enemiesToKill = 10
+        coins = 0
+        enemiesKilled = 0
         _enemiesLeft.value = enemiesToKill
         _fightState.value = FightState.IN_PROGRESS
         spawnEnemies()
@@ -60,10 +65,13 @@ class FightViewModel : ViewModel() {
     }
 
     fun hitEnemy(enemy: Enemy, damage: Int): Boolean {
+        SharedPrefsManager.addToTotalShots(1, sharedPreferences)
         if (enemy.receiveDamage(damage)) {
             innerList.remove(enemy)
             _enemies.postValue(innerList)
             _enemiesLeft.value = _enemiesLeft.value!!.minus(1)
+            coins += enemy.initialHealth
+            enemiesKilled += 1
             if (_enemiesLeft.value!! <= 0) {
                 stopGame()
                 _fightState.value = FightState.WIN
@@ -77,6 +85,8 @@ class FightViewModel : ViewModel() {
         spawnJob.cancel()
         innerList.clear()
         _enemies.postValue(innerList)
+        SharedPrefsManager.addToTotalKills(enemiesKilled, sharedPreferences)
+        SharedPrefsManager.addToTotalCoins(coins, sharedPreferences)
     }
 
     private fun spawnEnemies() {

@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#DCB700"
         android:fontFamily="@font/aldrich"
-        android:text="Rules"
+        android:text="Results"
         android:textAlignment="center"
         android:textColor="#635200"
         android:textSize="36sp"
