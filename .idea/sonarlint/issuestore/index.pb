@@ -11,8 +11,6 @@ o
 Lapp/src/main/java/com/example/bobthedefender/ui/viewmodels/FightViewModel.kt,e\d\ed9edea2849b018aeddb08f6c35ed5eb51875d3f
 t
 Dapp/src/main/java/com/example/bobthedefender/ui/models/FightState.kt,f\c\fcd74f0dda1e720b4076b3bc0167a434f2669018
-{
-Kapp/src/main/java/com/example/bobthedefender/ui/viewmodels/GameViewModel.kt,7\d\7d0e4d2b101d3af3d706fe90761e07336f7a24c6
 ~
 Napp/src/main/java/com/example/bobthedefender/ui/viewmodels/ViewModelFactory.kt,4\6\463a12164d3774076441d0f6a5e341e570b16091
 p
@@ -25,3 +23,11 @@ z
 Japp/src/main/java/com/example/bobthedefender/ui/fragments/FightFragment.kt,6\f\6f2843c3a739bbf2192c1630d69f1f448fe4b0f2
 ‡
 Wapp/src/main/java/com/example/bobthedefender/ui/fragments/adapters/WeaponListAdapter.kt,c\9\c992019eea9a60b9843234562a99c920b460e7b5
+}
+Mapp/src/main/java/com/example/bobthedefender/ui/helpers/SharedPrefsManager.kt,7\2\7226ab7989de8245a6ffc4c0d3998c20b5a7ed4e
+|
+Lapp/src/main/java/com/example/bobthedefender/ui/activities/SplashActivity.kt,1\0\10059e79bda475cd3d83958e07cec4f2150ddfe6
+|
+Lapp/src/main/java/com/example/bobthedefender/ui/fragments/ResultsFragment.kt,1\2\12da0576ce84e9bf528f2eda109efebc506af8b0
+{
+Kapp/src/main/java/com/example/bobthedefender/ui/viewmodels/ShopViewModel.kt,b\8\b822fc31318d06de3e882d25f42bdeb349557c85
