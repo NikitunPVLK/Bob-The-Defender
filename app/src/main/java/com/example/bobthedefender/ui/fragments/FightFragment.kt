@@ -25,6 +25,7 @@ import com.example.bobthedefender.ui.models.FightState
 import com.example.bobthedefender.ui.viewmodels.FightViewModel
 import com.example.bobthedefender.ui.viewmodels.GameViewModel
 import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
+import kotlin.random.Random
 
 
 class FightFragment : Fragment() {
@@ -200,11 +201,14 @@ class FightFragment : Fragment() {
                     .asGif()
                     .load(R.raw.alien_192x192)
                     .into(enemyBinding.enemyBody)
+
+                val x = 2000
+                val y = Random.nextInt(0, 550)
                 enemyBinding.root.layoutParams = LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT,
-                    enemy.x,
-                    enemy.y
+                    x,
+                    y
                 )
                 binding.gameFieldContainer.addView(enemyBinding.root)
                 enemy.health.observe(viewLifecycleOwner) {

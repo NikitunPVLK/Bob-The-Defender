@@ -94,15 +94,11 @@ class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewMod
         spawnJob = viewModelScope.launch {
             while (counter < enemiesToKill) {
                 if (fightState.value == FightState.IN_PROGRESS) {
-                    val enemyHealth = Random.nextInt(1, 10)
-                    val x = 2000
-                    val y = Random.nextInt(0, 550)
-                    val enemy = Enemy(x, y, 160, 180, enemyHealth)
+                    val enemy = Enemy(Random.nextInt(1, 10))
                     innerList.add(enemy)
                     _enemies.postValue(innerList)
                     counter += 1
                     delay(1000)
-                    Log.d("FightViewModel", "${enemies.value?.size}")
                 } else if (fightState.value == FightState.PAUSED) {
                     // Wait here while spawning is paused
                     delay(100) // Adjust delay as needed to avoid busy waiting

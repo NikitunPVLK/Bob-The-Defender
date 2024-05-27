@@ -4,10 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 data class Enemy(
-    val x: Int,
-    val y: Int,
-    val width: Int,
-    val height: Int,
     val initialHealth: Int = 3
 ) {
     private val _health = MutableLiveData(initialHealth)

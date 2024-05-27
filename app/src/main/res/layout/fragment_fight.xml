@@ -128,7 +128,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:text="@string/enemies_left_amount"
+                android:text="@string/number_placeholder"
                 android:textAlignment="center"
                 android:fontFamily="@font/aldrich"
                 android:textSize="20sp"
