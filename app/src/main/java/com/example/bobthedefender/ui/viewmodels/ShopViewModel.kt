@@ -8,7 +8,7 @@ import com.example.bobthedefender.R
 import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.models.Weapon
 
-class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
+class ShopViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
     private val _coins = MutableLiveData(SharedPrefsManager.getCoins(sharedPreferences))
     val coins: LiveData<Int>
@@ -35,24 +35,19 @@ class GameViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         )
     )
 
-    private var currentWeapon: Weapon =
-        SharedPrefsManager.getWeapon(sharedPreferences) ?: Weapon("Pistol", 1)
-
-    val playersDamage: Int
-        get() = currentWeapon.damage
-
     fun saveCoins(amount: Int) {
         _coins.value = _coins.value!!.plus(amount)
         SharedPrefsManager.saveCoins(_coins.value!!, sharedPreferences)
     }
 
-    fun onItemBought(weapon: Weapon) {
+    fun onItemBought(weapon: Weapon): Boolean {
         if (weapon.cost <= _coins.value!!) {
-            currentWeapon = weapon
             SharedPrefsManager.saveWeapon(weapon, sharedPreferences)
             _coins.value = _coins.value!!.minus(weapon.cost)
             SharedPrefsManager.saveCoins(_coins.value!!, sharedPreferences)
+            return true
         }
+        return false
     }
 
     fun isBuyEnabled(weapon: Weapon): Boolean {

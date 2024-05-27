@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.bobthedefender.R
 import com.example.bobthedefender.databinding.FragmentResultsBinding
 import com.example.bobthedefender.ui.helpers.SharedPrefsManager
-import com.example.bobthedefender.ui.viewmodels.GameViewModel
+import com.example.bobthedefender.ui.viewmodels.ShopViewModel
 import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 
 class ResultsFragment : Fragment() {
@@ -20,7 +20,7 @@ class ResultsFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private lateinit var gameViewModel: GameViewModel
+    private lateinit var shopViewModel: ShopViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -33,7 +33,7 @@ class ResultsFragment : Fragment() {
                 )
             )
         )
-        gameViewModel = viewModelProvider[GameViewModel::class.java]
+        shopViewModel = viewModelProvider[ShopViewModel::class.java]
     }
 
     override fun onCreateView(

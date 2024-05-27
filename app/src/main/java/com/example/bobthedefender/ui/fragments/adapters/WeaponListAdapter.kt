@@ -7,6 +7,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.bobthedefender.R
 import com.example.bobthedefender.databinding.WeaponListItemBinding
 import com.example.bobthedefender.ui.models.Weapon
 
@@ -55,7 +56,26 @@ class WeaponListAdapter(
                         null
                     )
                 )
-                buyButton.isEnabled = isBuyEnabled(weapon)
+                val canBuy = isBuyEnabled(weapon)
+                if (canBuy) {
+                    buyButton.isEnabled = true
+                    buyButton.text = resources.getText(R.string.buy)
+                } else {
+                    buyButton.isEnabled = false
+                    buyButton.setBackgroundColor(
+                        resources.getColor(
+                            R.color.disabled_button_color,
+                            null
+                        )
+                    )
+                    buyButton.setTextColor(
+                        resources.getColor(
+                            R.color.disabled_button_text_color,
+                            null
+                        )
+                    )
+                }
+
                 buyButton.setOnClickListener {
                     onBuyClicked(weapon)
                 }

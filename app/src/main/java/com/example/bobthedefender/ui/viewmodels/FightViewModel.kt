@@ -1,7 +1,6 @@
 package com.example.bobthedefender.ui.viewmodels
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
+import com.example.bobthedefender.ui.models.Weapon
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,6 +41,9 @@ class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewMod
 
     var coins: Int = 0
 
+    var weapon: Weapon =
+        SharedPrefsManager.getWeapon(sharedPreferences) ?: Weapon("Pistol", 1)
+
     fun startGame() {
         _health.value = 3
         enemiesToKill = 10
@@ -64,9 +67,9 @@ class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewMod
         }
     }
 
-    fun hitEnemy(enemy: Enemy, damage: Int): Boolean {
+    fun hitEnemy(enemy: Enemy): Boolean {
         SharedPrefsManager.addToTotalShots(1, sharedPreferences)
-        if (enemy.receiveDamage(damage)) {
+        if (enemy.receiveDamage(weapon.damage)) {
             innerList.remove(enemy)
             _enemies.postValue(innerList)
             _enemiesLeft.value = _enemiesLeft.value!!.minus(1)

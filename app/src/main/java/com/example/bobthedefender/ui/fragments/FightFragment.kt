@@ -23,7 +23,7 @@ import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
 import com.example.bobthedefender.ui.viewmodels.FightViewModel
-import com.example.bobthedefender.ui.viewmodels.GameViewModel
+import com.example.bobthedefender.ui.viewmodels.ShopViewModel
 import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 import kotlin.random.Random
 
@@ -36,7 +36,7 @@ class FightFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var fightViewModel: FightViewModel
-    private lateinit var gameViewModel: GameViewModel
+    private lateinit var shopViewModel: ShopViewModel
 
     private val enemiesMap = mutableMapOf<Enemy, Pair<View, ObjectAnimator>>()
 
@@ -64,7 +64,7 @@ class FightFragment : Fragment() {
             )
         )
         fightViewModel = viewModelProvider[FightViewModel::class.java]
-        gameViewModel = viewModelProvider[GameViewModel::class.java]
+        shopViewModel = viewModelProvider[ShopViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -90,7 +90,7 @@ class FightFragment : Fragment() {
                 }
 
                 FightState.WIN -> {
-                    gameViewModel.saveCoins(fightViewModel.coins)
+                    shopViewModel.saveCoins(fightViewModel.coins)
                 }
 
                 else -> {}
@@ -235,7 +235,7 @@ class FightFragment : Fragment() {
                         fireAnimator.cancel()
                     }
                     fireAnimator.start()
-                    if (fightViewModel.hitEnemy(enemy, gameViewModel.playersDamage)) {
+                    if (fightViewModel.hitEnemy(enemy)) {
                         binding.gameFieldContainer.removeView(enemyBinding.root)
                         enemyAnimator.cancel()
                         enemiesMap.remove(enemy)

@@ -10,9 +10,9 @@ class ViewModelFactory(private val sharedPreferences: SharedPreferences) :
         if (modelClass.isAssignableFrom(FightViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return FightViewModel(sharedPreferences) as T
-        } else if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
+        } else if (modelClass.isAssignableFrom(ShopViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return GameViewModel(sharedPreferences) as T
+            return ShopViewModel(sharedPreferences) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class" + modelClass::class.simpleName)
     }
