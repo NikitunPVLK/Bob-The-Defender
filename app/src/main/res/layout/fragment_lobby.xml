@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#020629">
+    android:background="@color/blue">
 
     <TextView
         android:id="@+id/game_name"
@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/aldrich"
-        android:text="BOB THE\nDEFENDER"
+        android:text="@string/app_title"
         android:textAlignment="center"
-        android:textColor="#DCB700"
+        android:textColor="@color/golden_yellow"
         android:textSize="64sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,8 @@
         app:layout_constraintBottom_toBottomOf="@id/game_name"
         app:layout_constraintEnd_toStartOf="@id/game_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/game_name" />
+        app:layout_constraintTop_toTopOf="@id/game_name"
+        android:importantForAccessibility="no" />
 
     <ImageView
         android:id="@+id/alien_view"
@@ -35,17 +36,18 @@
         app:layout_constraintBottom_toBottomOf="@id/game_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/game_name"
-        app:layout_constraintTop_toTopOf="@id/game_name" />
+        app:layout_constraintTop_toTopOf="@id/game_name"
+        android:importantForAccessibility="no" />
 
     <Button
         android:id="@+id/start_game_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#DCB700"
+        android:backgroundTint="@color/golden_yellow"
         android:fontFamily="@font/aldrich"
-        android:text="Start"
+        android:text="@string/start"
         android:textAlignment="center"
-        android:textColor="#635200"
+        android:textColor="@color/dark_yellow"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,11 +58,11 @@
         android:id="@+id/shop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#DCB700"
+        android:backgroundTint="@color/golden_yellow"
         android:fontFamily="@font/aldrich"
-        android:text="Shop"
+        android:text="@string/shop"
         android:textAlignment="center"
-        android:textColor="#635200"
+        android:textColor="@color/dark_yellow"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/start_game_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,11 +73,11 @@
         android:id="@+id/rules_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#DCB700"
+        android:backgroundTint="@color/golden_yellow"
         android:fontFamily="@font/aldrich"
-        android:text="Results"
+        android:text="@string/results"
         android:textAlignment="center"
-        android:textColor="#635200"
+        android:textColor="@color/dark_yellow"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/start_game_button"
         app:layout_constraintEnd_toStartOf="@+id/start_game_button"

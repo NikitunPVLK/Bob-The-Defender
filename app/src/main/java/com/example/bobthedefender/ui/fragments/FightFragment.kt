@@ -140,8 +140,8 @@ class FightFragment : Fragment() {
 
         when (fightState) {
             FightState.PAUSED -> {
-                dialogBinding.dialogText.text = "Game paused"
-                dialogBinding.dialogButton.text = "Resume"
+                dialogBinding.dialogText.text = resources.getText(R.string.game_paused)
+                dialogBinding.dialogButton.text = resources.getText(R.string.resume)
                 dialogBinding.dialogButton.setOnClickListener {
                     fightViewModel.changePauseState()
                     changeAnimationsState()
@@ -151,8 +151,8 @@ class FightFragment : Fragment() {
             }
 
             FightState.WIN -> {
-                dialogBinding.dialogText.text = "You won!"
-                dialogBinding.dialogButton.text = "Go to lobby"
+                dialogBinding.dialogText.text = resources.getText(R.string.fight_won)
+                dialogBinding.dialogButton.text = resources.getText(R.string.go_to_lobby)
                 dialogBinding.dialogButton.setOnClickListener {
                     dialog.dismiss()
                     findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)
@@ -161,8 +161,8 @@ class FightFragment : Fragment() {
             }
 
             FightState.LOSE -> {
-                dialogBinding.dialogText.text = "You lost..."
-                dialogBinding.dialogButton.text = "Go to lobby"
+                dialogBinding.dialogText.text = resources.getText(R.string.fight_lost)
+                dialogBinding.dialogButton.text = resources.getText(R.string.go_to_lobby)
                 dialogBinding.dialogButton.setOnClickListener {
                     dialog.dismiss()
                     findNavController().navigate(R.id.action_gameScreenFragment_to_startFragment)

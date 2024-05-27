@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">BobTheDefender</string>
+    <string name="app_title">BOB THE\nDEFENDER</string>
+    <string name="percents_placeholder">0%</string>
+    <string name="enemy">Enemy</string>
+    <string name="text_placeholder">TEXT PLACEHOLDER</string>
+    <string name="placeholder">PLACEHOLDER</string>
+    <string name="enemies_left">Enemies left:</string>
+    <string name="number_placeholder">10</string>
+    <string name="pause_button">Pause button</string>
+    <string name="start">Start</string>
+    <string name="shop">Shop</string>
+    <string name="results">Results</string>
+    <string name="aliens_killed">Aliens killed:</string>
+    <string name="bullets_shot">Bullets shot:</string>
+    <string name="coins_earned">Coins earned:</string>
+    <string name="go_back">Go back</string>
+    <string name="coins">Coins:</string>
+    <string name="name_placeholder">NAME PLACEHOLDER</string>
+    <string name="damage">Damage:</string>
+    <string name="cost">Cost:</string>
+    <string name="buy">Buy</string>
+    <string name="game_paused">Game paused</string>
+    <string name="resume">Resume</string>
+    <string name="fight_won">You won!</string>
+    <string name="fight_lost">You lost…</string>
+    <string name="go_to_lobby">Go to lobby</string>
 </resources>

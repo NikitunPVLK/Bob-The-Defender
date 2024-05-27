@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#020629"
+    android:background="@color/blue"
     tools:context=".ui.activities.SplashActivity">
 
     <TextView
@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/aldrich"
-        android:text="BOB THE\nDEFENDER"
+        android:text="@string/app_title"
         android:textAlignment="center"
-        android:textColor="#DCB700"
+        android:textColor="@color/golden_yellow"
         android:textSize="64sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:id="@+id/progress_percents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0%"
+        android:text="@string/percents_placeholder"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:fontFamily="@font/aldrich"

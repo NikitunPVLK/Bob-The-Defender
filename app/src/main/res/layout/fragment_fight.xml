@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -24,8 +23,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/game_field_container" />
 
-
-
     <ImageView
         android:id="@+id/battle_field_image"
         android:layout_width="wrap_content"
@@ -33,7 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAccessibility="no" />
 
     <View
         android:id="@+id/fence"
@@ -52,7 +50,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_zone"
         app:layout_constraintEnd_toEndOf="@+id/player_zone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/player_zone" />
+        app:layout_constraintTop_toTopOf="@id/player_zone"
+        android:importantForAccessibility="no" />
 
     <ImageView
         android:id="@+id/fire"
@@ -63,7 +62,8 @@
         android:src="@drawable/fire"
         app:layout_constraintBottom_toBottomOf="@id/player"
         app:layout_constraintStart_toEndOf="@id/player"
-        app:layout_constraintTop_toTopOf="@id/player" />
+        app:layout_constraintTop_toTopOf="@id/player"
+        android:importantForAccessibility="no" />
 
     <AbsoluteLayout
         android:id="@+id/game_field_container"
@@ -116,10 +116,10 @@
                 android:id="@+id/enemies_left_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enemies left: "
+                android:text="@string/enemies_left"
                 android:fontFamily="@font/aldrich"
                 android:textSize="20sp"
-                android:textColor="#DCB700"
+                android:textColor="@color/golden_yellow"
                 app:layout_constraintEnd_toStartOf="@id/enemies_left"
                 app:layout_constraintTop_toTopOf="@id/enemies_left" />
 
@@ -128,11 +128,11 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:text="10"
+                android:text="@string/enemies_left_amount"
                 android:textAlignment="center"
                 android:fontFamily="@font/aldrich"
                 android:textSize="20sp"
-                android:textColor="#DCB700"
+                android:textColor="@color/golden_yellow"
                 app:layout_constraintEnd_toStartOf="@id/health_bar"
                 app:layout_constraintTop_toTopOf="@id/health_bar" />
 
@@ -144,7 +144,8 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/pause_icon"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/pause_button"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
