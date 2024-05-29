@@ -103,8 +103,7 @@ class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewMod
                     counter += 1
                     delay(1000)
                 } else if (fightState.value == FightState.PAUSED) {
-                    // Wait here while spawning is paused
-                    delay(100) // Adjust delay as needed to avoid busy waiting
+                    delay(100)
                 }
             }
         }
