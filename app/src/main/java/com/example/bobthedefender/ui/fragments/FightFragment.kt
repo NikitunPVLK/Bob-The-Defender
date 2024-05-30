@@ -19,11 +19,11 @@ import com.example.bobthedefender.databinding.EnemyBinding
 import com.example.bobthedefender.databinding.FightDialogBinding
 import com.example.bobthedefender.databinding.FragmentFightBinding
 import com.example.bobthedefender.databinding.HeartBinding
+import com.example.bobthedefender.domain.BtdApplication
 import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
 import com.example.bobthedefender.ui.viewmodels.FightViewModel
-import com.example.bobthedefender.ui.viewmodels.ShopViewModel
 import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 import kotlin.random.Random
 
@@ -36,7 +36,6 @@ class FightFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var fightViewModel: FightViewModel
-    private lateinit var shopViewModel: ShopViewModel
 
     private val enemiesMap = mutableMapOf<Enemy, Pair<View, ObjectAnimator>>()
 
@@ -60,11 +59,12 @@ class FightFragment : Fragment() {
                 context.getSharedPreferences(
                     SharedPrefsManager.GAME_PREFERENCES,
                     Context.MODE_PRIVATE
-                )
+                ),
+                (requireActivity().application as BtdApplication).player
             )
         )
+
         fightViewModel = viewModelProvider[FightViewModel::class.java]
-        shopViewModel = viewModelProvider[ShopViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -84,16 +84,8 @@ class FightFragment : Fragment() {
 
         fightViewModel.fightState.observe(viewLifecycleOwner) {
             showAlert(it)
-            when (it) {
-                FightState.LOSE -> {
-                    clearField()
-                }
-
-                FightState.WIN -> {
-                    shopViewModel.saveCoins(fightViewModel.coins)
-                }
-
-                else -> {}
+            if (it == FightState.LOSE) {
+                clearField()
             }
         }
 

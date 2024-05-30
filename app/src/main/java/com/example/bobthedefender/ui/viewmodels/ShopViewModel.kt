@@ -6,11 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bobthedefender.R
 import com.example.bobthedefender.ui.helpers.SharedPrefsManager
+import com.example.bobthedefender.ui.models.Player
 import com.example.bobthedefender.ui.models.Weapon
 
-class ShopViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
+class ShopViewModel(
+    private val sharedPreferences: SharedPreferences,
+    private val player: Player
+) : ViewModel() {
 
-    private val _coins = MutableLiveData(SharedPrefsManager.getCoins(sharedPreferences))
+    private val _coins = MutableLiveData(player.coins)
     val coins: LiveData<Int>
         get() = _coins
 
@@ -38,36 +42,28 @@ class ShopViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         )
     )
 
-    private var _catalog: MutableLiveData<List<Weapon>>
+    private var _catalog: MutableLiveData<List<Weapon>> = MutableLiveData(weapons.map {
+        if (it.name == player.weapon.name) player.weapon else
+            it
+    }.toMutableList())
     val catalog: LiveData<List<Weapon>>
         get() = _catalog
 
-    init {
-        val playersWeapon = SharedPrefsManager.getWeapon(sharedPreferences)
-        _catalog = MutableLiveData(weapons.map {
-            if (it.name == playersWeapon?.name) playersWeapon else
-                it
-        }.toMutableList())
-    }
-
-    fun saveCoins(amount: Int) {
-        _coins.value = _coins.value!!.plus(amount)
-        SharedPrefsManager.saveCoins(_coins.value!!, sharedPreferences)
-    }
-
-    fun onItemBought(weapon: Weapon): Boolean {
-        if (weapon.cost <= _coins.value!! && !weapon.isBought) {
+    fun buyWeapon(weapon: Weapon): Boolean {
+        if (weapon.cost <= player.coins && !weapon.isBought) {
             weapon.isBought = true
+            player.weapon = weapon
+            player.coins -= weapon.cost
             _catalog.postValue(_catalog.value!!.toList())
             SharedPrefsManager.saveWeapon(weapon, sharedPreferences)
-            _coins.value = _coins.value!!.minus(weapon.cost)
-            SharedPrefsManager.saveCoins(_coins.value!!, sharedPreferences)
+            _coins.postValue(player.coins)
+            SharedPrefsManager.saveCoins(player.coins, sharedPreferences)
             return true
         }
         return false
     }
 
     fun isBuyEnabled(weapon: Weapon): Boolean {
-        return weapon.cost <= _coins.value!! && !weapon.isBought
+        return weapon.cost <= player.coins && !weapon.isBought
     }
 }

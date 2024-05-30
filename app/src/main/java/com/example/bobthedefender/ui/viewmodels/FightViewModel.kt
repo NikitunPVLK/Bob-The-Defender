@@ -8,13 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.models.Enemy
 import com.example.bobthedefender.ui.models.FightState
-import com.example.bobthedefender.ui.models.Weapon
+import com.example.bobthedefender.ui.models.Player
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
+class FightViewModel(
+    private val sharedPreferences: SharedPreferences,
+    private val player: Player
+) : ViewModel() {
     private val _health = MutableLiveData(3)
     val health: LiveData<Int>
         get() = _health
@@ -39,15 +42,12 @@ class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewMod
 
     private lateinit var spawnJob: Job
 
-    var coins: Int = 0
-
-    var weapon: Weapon =
-        SharedPrefsManager.getWeapon(sharedPreferences) ?: Weapon("Pistol", 1, true)
+    var earnedCoins: Int = 0
 
     fun startGame() {
         _health.value = 3
         enemiesToKill = 10
-        coins = 0
+        earnedCoins = 0
         enemiesKilled = 0
         _enemiesLeft.value = enemiesToKill
         _fightState.value = FightState.IN_PROGRESS
@@ -62,22 +62,29 @@ class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewMod
             stopGame()
             _fightState.value = FightState.LOSE
         } else if (enemiesLeft.value!! <= 0 && innerList.isEmpty()) {
-            stopGame()
-            _fightState.value = FightState.WIN
+            win()
         }
+    }
+
+    private fun win() {
+        stopGame()
+        player.coins += earnedCoins
+        SharedPrefsManager.saveCoins(player.coins, sharedPreferences)
+        SharedPrefsManager.addToTotalKills(enemiesKilled, sharedPreferences)
+        SharedPrefsManager.addToTotalCoins(earnedCoins, sharedPreferences)
+        _fightState.value = FightState.WIN
     }
 
     fun hitEnemy(enemy: Enemy): Boolean {
         SharedPrefsManager.addToTotalShots(1, sharedPreferences)
-        if (enemy.receiveDamage(weapon.damage)) {
+        if (enemy.receiveDamage(player.weapon.damage)) {
             innerList.remove(enemy)
             _enemies.postValue(innerList)
             _enemiesLeft.value = _enemiesLeft.value!!.minus(1)
-            coins += enemy.initialHealth
+            earnedCoins += enemy.initialHealth
             enemiesKilled += 1
             if (_enemiesLeft.value!! <= 0) {
-                stopGame()
-                _fightState.value = FightState.WIN
+                win()
             }
             return true
         }
@@ -88,8 +95,6 @@ class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewMod
         spawnJob.cancel()
         innerList.clear()
         _enemies.postValue(innerList)
-        SharedPrefsManager.addToTotalKills(enemiesKilled, sharedPreferences)
-        SharedPrefsManager.addToTotalCoins(coins, sharedPreferences)
     }
 
     private fun spawnEnemies() {

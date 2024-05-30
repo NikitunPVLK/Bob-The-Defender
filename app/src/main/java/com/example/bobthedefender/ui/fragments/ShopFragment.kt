@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bobthedefender.databinding.FragmentShopBinding
+import com.example.bobthedefender.domain.BtdApplication
 import com.example.bobthedefender.ui.fragments.adapters.WeaponListAdapter
 import com.example.bobthedefender.ui.helpers.SharedPrefsManager
 import com.example.bobthedefender.ui.viewmodels.FightViewModel
@@ -35,7 +36,8 @@ class ShopFragment : Fragment() {
                     context.getSharedPreferences(
                         SharedPrefsManager.GAME_PREFERENCES,
                         Context.MODE_PRIVATE
-                    )
+                    ),
+                    (requireActivity().application as BtdApplication).player
                 )
             )
         shopViewModel = viewModelProvider[ShopViewModel::class.java]
@@ -59,12 +61,9 @@ class ShopFragment : Fragment() {
 
         adapter = WeaponListAdapter(
             resources,
-            shopViewModel::isBuyEnabled
-        ) {
-            if (shopViewModel.onItemBought(it)) {
-                fightViewModel.weapon = it
-            }
-        }
+            shopViewModel::isBuyEnabled,
+            shopViewModel::buyWeapon
+        )
 
         binding.weaponList.adapter = adapter
         binding.weaponList.layoutManager =

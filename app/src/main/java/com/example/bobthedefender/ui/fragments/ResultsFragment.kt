@@ -6,35 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.bobthedefender.R
 import com.example.bobthedefender.databinding.FragmentResultsBinding
 import com.example.bobthedefender.ui.helpers.SharedPrefsManager
-import com.example.bobthedefender.ui.viewmodels.ShopViewModel
-import com.example.bobthedefender.ui.viewmodels.ViewModelFactory
 
 class ResultsFragment : Fragment() {
     private var _binding: FragmentResultsBinding? = null
     private val binding
         get() = _binding!!
-
-    private lateinit var shopViewModel: ShopViewModel
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val viewModelProvider = ViewModelProvider(
-            requireActivity(),
-            ViewModelFactory(
-                context.getSharedPreferences(
-                    SharedPrefsManager.GAME_PREFERENCES,
-                    Context.MODE_PRIVATE
-                )
-            )
-        )
-        shopViewModel = viewModelProvider[ShopViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
