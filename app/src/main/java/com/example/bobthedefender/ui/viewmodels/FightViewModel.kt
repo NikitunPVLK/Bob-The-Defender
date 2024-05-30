@@ -42,7 +42,7 @@ class FightViewModel(private val sharedPreferences: SharedPreferences) : ViewMod
     var coins: Int = 0
 
     var weapon: Weapon =
-        SharedPrefsManager.getWeapon(sharedPreferences) ?: Weapon("Pistol", 1)
+        SharedPrefsManager.getWeapon(sharedPreferences) ?: Weapon("Pistol", 1, true)
 
     fun startGame() {
         _health.value = 3

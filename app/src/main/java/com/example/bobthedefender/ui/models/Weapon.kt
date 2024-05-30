@@ -5,6 +5,7 @@ import com.google.gson.Gson
 data class Weapon(
     val name: String,
     val damage: Int,
+    var isBought: Boolean,
     val cost: Int = 0,
     val imageId: Int = 0
 ) {

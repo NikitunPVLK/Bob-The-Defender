@@ -17,6 +17,11 @@ class WeaponListAdapter(
     private val onBuyClicked: (Weapon) -> Unit
 ) : ListAdapter<Weapon, WeaponListAdapter.WeaponViewHolder>(DiffCallBack) {
 
+    override fun submitList(list: List<Weapon>?) {
+        super.submitList(list)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -56,8 +61,18 @@ class WeaponListAdapter(
                         null
                     )
                 )
-                val canBuy = isBuyEnabled(weapon)
-                if (canBuy) {
+                setupButtonState(weapon)
+
+                buyButton.setOnClickListener {
+                    onBuyClicked(weapon)
+                    setupButtonState(weapon)
+                }
+            }
+        }
+
+        private fun setupButtonState(weapon: Weapon) {
+            with(binding) {
+                if (isBuyEnabled(weapon)) {
                     buyButton.isEnabled = true
                     buyButton.text = resources.getText(R.string.buy)
                 } else {
@@ -75,10 +90,6 @@ class WeaponListAdapter(
                         )
                     )
                 }
-
-                buyButton.setOnClickListener {
-                    onBuyClicked(weapon)
-                }
             }
         }
     }
@@ -93,6 +104,7 @@ class WeaponListAdapter(
                 return oldItem.name == newItem.name
                         && oldItem.damage == newItem.damage
                         && oldItem.cost == newItem.cost
+                        && oldItem.isBought == newItem.isBought
             }
         }
     }

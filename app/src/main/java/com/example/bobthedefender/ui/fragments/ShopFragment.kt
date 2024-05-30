@@ -70,7 +70,9 @@ class ShopFragment : Fragment() {
         binding.weaponList.layoutManager =
             GridLayoutManager(context, 3)
 
-        adapter.submitList(shopViewModel.catalog)
+        shopViewModel.catalog.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
 
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
