@@ -49,10 +49,15 @@ class ShopViewModel(
     val catalog: LiveData<List<Weapon>>
         get() = _catalog
 
+    private val _equippedWeapon = MutableLiveData(player.weapon)
+    val equippedWeapon: LiveData<Weapon>
+        get() = _equippedWeapon
+
     fun buyWeapon(weapon: Weapon): Boolean {
-        if (weapon.cost <= player.coins && !weapon.isBought) {
+        if (isBuyEnabled(weapon)) {
             weapon.isBought = true
             player.weapon = weapon
+            _equippedWeapon.postValue(player.weapon)
             player.coins -= weapon.cost
             _catalog.postValue(_catalog.value!!.toList())
             SharedPrefsManager.saveWeapon(weapon, sharedPreferences)
@@ -65,5 +70,14 @@ class ShopViewModel(
 
     fun isBuyEnabled(weapon: Weapon): Boolean {
         return weapon.cost <= player.coins && !weapon.isBought
+    }
+
+    fun equipWeapon(weapon: Weapon) {
+        player.weapon = weapon
+        _equippedWeapon.postValue(player.weapon)
+    }
+
+    fun isWeaponEquipped(weapon: Weapon): Boolean {
+        return weapon == player.weapon
     }
 }

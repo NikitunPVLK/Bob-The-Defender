@@ -62,7 +62,9 @@ class ShopFragment : Fragment() {
         adapter = WeaponListAdapter(
             resources,
             shopViewModel::isBuyEnabled,
-            shopViewModel::buyWeapon
+            shopViewModel::buyWeapon,
+            shopViewModel::equipWeapon,
+            shopViewModel::isWeaponEquipped,
         )
 
         binding.weaponList.adapter = adapter
@@ -71,6 +73,10 @@ class ShopFragment : Fragment() {
 
         shopViewModel.catalog.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+
+        shopViewModel.equippedWeapon.observe(viewLifecycleOwner) {
+            adapter.notifyDataSetChanged()
         }
 
         binding.backButton.setOnClickListener {

@@ -25,4 +25,6 @@
     <string name="fight_won">You won!</string>
     <string name="fight_lost">You lost…</string>
     <string name="go_to_lobby">Go to lobby</string>
+    <string name="equip">Equip</string>
+    <string name="equipped">Equipped</string>
 </resources>

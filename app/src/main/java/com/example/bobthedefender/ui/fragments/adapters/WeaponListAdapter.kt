@@ -14,7 +14,9 @@ import com.example.bobthedefender.ui.models.Weapon
 class WeaponListAdapter(
     private val resources: Resources,
     private val isBuyEnabled: (Weapon) -> Boolean,
-    private val onBuyClicked: (Weapon) -> Unit
+    private val onBuyClicked: (Weapon) -> Unit,
+    private val equipWeapon: (Weapon) -> Unit,
+    private val isWeaponEquipped: (Weapon) -> Boolean
 ) : ListAdapter<Weapon, WeaponListAdapter.WeaponViewHolder>(DiffCallBack) {
 
     override fun submitList(list: List<Weapon>?) {
@@ -34,7 +36,9 @@ class WeaponListAdapter(
             ),
             resources,
             isBuyEnabled,
-            onBuyClicked
+            onBuyClicked,
+            equipWeapon,
+            isWeaponEquipped
         )
     }
 
@@ -48,6 +52,8 @@ class WeaponListAdapter(
         private var resources: Resources,
         private val isBuyEnabled: (Weapon) -> Boolean,
         private val onBuyClicked: (Weapon) -> Unit,
+        private val equipWeapon: (Weapon) -> Unit,
+        private val isWeaponEquipped: (Weapon) -> Boolean
     ) : ViewHolder(binding.root) {
         fun bind(weapon: Weapon) {
             binding.apply {
@@ -62,34 +68,68 @@ class WeaponListAdapter(
                     )
                 )
                 setupButtonState(weapon)
-
-                buyButton.setOnClickListener {
-                    onBuyClicked(weapon)
-                    setupButtonState(weapon)
-                }
             }
         }
 
         private fun setupButtonState(weapon: Weapon) {
             with(binding) {
-                if (isBuyEnabled(weapon)) {
-                    buyButton.isEnabled = true
-                    buyButton.text = resources.getText(R.string.buy)
+                if (weapon.isBought) {
+                    if (isWeaponEquipped(weapon)) {
+                        setupButtonDisabledView(resources.getString(R.string.equipped))
+                    } else {
+                        setupButtonEnabledView(resources.getString(R.string.equip))
+                        buyButton.setOnClickListener {
+                            equipWeapon(weapon)
+                        }
+                    }
                 } else {
-                    buyButton.isEnabled = false
-                    buyButton.setBackgroundColor(
-                        resources.getColor(
-                            R.color.disabled_button_color,
-                            null
-                        )
-                    )
-                    buyButton.setTextColor(
-                        resources.getColor(
-                            R.color.disabled_button_text_color,
-                            null
-                        )
-                    )
+                    if (isBuyEnabled(weapon)) {
+                        setupButtonEnabledView(resources.getString(R.string.buy))
+                        buyButton.setOnClickListener {
+                            onBuyClicked(weapon)
+                        }
+                    } else {
+                        setupButtonDisabledView(resources.getString(R.string.buy))
+                    }
                 }
+            }
+        }
+
+        private fun setupButtonDisabledView(text: String) {
+            with(binding) {
+                buyButton.isEnabled = false
+                buyButton.text = text
+                buyButton.setBackgroundColor(
+                    resources.getColor(
+                        R.color.disabled_button_color,
+                        null
+                    )
+                )
+                buyButton.setTextColor(
+                    resources.getColor(
+                        R.color.disabled_button_text_color,
+                        null
+                    )
+                )
+            }
+        }
+
+        private fun setupButtonEnabledView(text: String) {
+            with(binding) {
+                buyButton.isEnabled = true
+                buyButton.text = text
+                buyButton.setBackgroundColor(
+                    resources.getColor(
+                        R.color.golden_yellow,
+                        null
+                    )
+                )
+                buyButton.setTextColor(
+                    resources.getColor(
+                        R.color.dark_yellow,
+                        null
+                    )
+                )
             }
         }
     }
